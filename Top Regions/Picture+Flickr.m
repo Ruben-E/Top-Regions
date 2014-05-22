@@ -10,4 +10,12 @@
 
 @implementation Picture (Flickr)
 
++ (Picture *)pictureWithFlickrInfo:(NSDictionary *)photoDictionary inManagedObjectContext:(NSManagedObjectContext *)context {
+    return nil;
+}
+
++ (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
+    
+}
+
 @end
