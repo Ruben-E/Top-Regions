@@ -7,6 +7,7 @@
 //
 
 #import "Photographer.h"
+#import "Picture.h"
 
 
 @implementation Photographer

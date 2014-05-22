@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
+@class Picture;
 
 @interface Photographer : NSManagedObject
 
@@ -18,8 +19,8 @@
 
 @interface Photographer (CoreDataGeneratedAccessors)
 
-- (void)addPicturesObject:(NSManagedObject *)value;
-- (void)removePicturesObject:(NSManagedObject *)value;
+- (void)addPicturesObject:(Picture *)value;
+- (void)removePicturesObject:(Picture *)value;
 - (void)addPictures:(NSSet *)values;
 - (void)removePictures:(NSSet *)values;
 
