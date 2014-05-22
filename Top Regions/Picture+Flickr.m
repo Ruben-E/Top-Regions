@@ -7,11 +7,19 @@
 //
 
 #import "Picture+Flickr.h"
+#import "Flickr
 
 @implementation Picture (Flickr)
 
 + (Picture *)pictureWithFlickrInfo:(NSDictionary *)photoDictionary inManagedObjectContext:(NSManagedObjectContext *)context {
-    return nil;
+    Picture *picture = nil;
+    
+    NSString *flickrId =
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+    request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
+    
+    return picture;
 }
 
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
