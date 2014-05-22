@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */; };
+		11B633B0192E3CE70092B468 /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AF192E3CE70092B468 /* Photographer.m */; };
+		11B633B3192E3CE80092B468 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633B2192E3CE80092B468 /* Picture.m */; };
 		11EF9E62192BE246000C6DD0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E61192BE246000C6DD0 /* Foundation.framework */; };
 		11EF9E64192BE246000C6DD0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E63192BE246000C6DD0 /* CoreGraphics.framework */; };
 		11EF9E66192BE246000C6DD0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E65192BE246000C6DD0 /* UIKit.framework */; };
@@ -37,6 +39,10 @@
 
 /* Begin PBXFileReference section */
 		11B633AC192E3B590092B468 /* TopRegions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TopRegions.xcdatamodel; sourceTree = "<group>"; };
+		11B633AE192E3CE70092B468 /* Photographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photographer.h; sourceTree = "<group>"; };
+		11B633AF192E3CE70092B468 /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
+		11B633B1192E3CE80092B468 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
+		11B633B2192E3CE80092B468 /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
 		11EF9E5E192BE246000C6DD0 /* Top Regions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Top Regions.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EF9E61192BE246000C6DD0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		11EF9E63192BE246000C6DD0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -83,6 +89,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		11B633B4192E3CF20092B468 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				11B633AE192E3CE70092B468 /* Photographer.h */,
+				11B633B1192E3CE80092B468 /* Picture.h */,
+				11B633AF192E3CE70092B468 /* Photographer.m */,
+				11B633B2192E3CE80092B468 /* Picture.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
 		11EF9E55192BE246000C6DD0 = {
 			isa = PBXGroup;
 			children = (
@@ -117,14 +134,15 @@
 			isa = PBXGroup;
 			children = (
 				11EF9E70192BE246000C6DD0 /* AppDelegate.h */,
-				11EF9E71192BE246000C6DD0 /* AppDelegate.m */,
-				11EF9E73192BE246000C6DD0 /* Main_iPhone.storyboard */,
-				11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */,
-				11EF9E76192BE246000C6DD0 /* Main_iPad.storyboard */,
 				11EF9E79192BE246000C6DD0 /* ViewController.h */,
+				11EF9E71192BE246000C6DD0 /* AppDelegate.m */,
 				11EF9E7A192BE246000C6DD0 /* ViewController.m */,
 				11EF9E7C192BE246000C6DD0 /* Images.xcassets */,
+				11EF9E76192BE246000C6DD0 /* Main_iPad.storyboard */,
+				11EF9E73192BE246000C6DD0 /* Main_iPhone.storyboard */,
+				11B633B4192E3CF20092B468 /* Model */,
 				11EF9E68192BE246000C6DD0 /* Supporting Files */,
+				11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */,
 			);
 			path = "Top Regions";
 			sourceTree = "<group>";
@@ -256,10 +274,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11B633B3192E3CE80092B468 /* Picture.m in Sources */,
 				11EF9E7B192BE246000C6DD0 /* ViewController.m in Sources */,
 				11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */,
 				11EF9E72192BE246000C6DD0 /* AppDelegate.m in Sources */,
 				11EF9E6E192BE246000C6DD0 /* main.m in Sources */,
+				11B633B0192E3CE70092B468 /* Photographer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
