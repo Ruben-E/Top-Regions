@@ -10,6 +10,7 @@
 		11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */; };
 		11B633B7192E3D9B0092B468 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633B6192E3D9B0092B468 /* Picture.m */; };
 		11B633BA192E3D9B0092B468 /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633B9192E3D9B0092B468 /* Photographer.m */; };
+		11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633BC192E3E120092B468 /* Picture+Flickr.m */; };
 		11EF9E62192BE246000C6DD0 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E61192BE246000C6DD0 /* Foundation.framework */; };
 		11EF9E64192BE246000C6DD0 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E63192BE246000C6DD0 /* CoreGraphics.framework */; };
 		11EF9E66192BE246000C6DD0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E65192BE246000C6DD0 /* UIKit.framework */; };
@@ -43,6 +44,8 @@
 		11B633B6192E3D9B0092B468 /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
 		11B633B8192E3D9B0092B468 /* Photographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photographer.h; sourceTree = "<group>"; };
 		11B633B9192E3D9B0092B468 /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
+		11B633BB192E3E120092B468 /* Picture+Flickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Picture+Flickr.h"; sourceTree = "<group>"; };
+		11B633BC192E3E120092B468 /* Picture+Flickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Picture+Flickr.m"; sourceTree = "<group>"; };
 		11EF9E5E192BE246000C6DD0 /* Top Regions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Top Regions.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		11EF9E61192BE246000C6DD0 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		11EF9E63192BE246000C6DD0 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -93,8 +96,10 @@
 			isa = PBXGroup;
 			children = (
 				11B633B8192E3D9B0092B468 /* Photographer.h */,
+				11B633BB192E3E120092B468 /* Picture+Flickr.h */,
 				11B633B5192E3D9B0092B468 /* Picture.h */,
 				11B633B9192E3D9B0092B468 /* Photographer.m */,
+				11B633BC192E3E120092B468 /* Picture+Flickr.m */,
 				11B633B6192E3D9B0092B468 /* Picture.m */,
 			);
 			name = Model;
@@ -276,6 +281,7 @@
 			files = (
 				11B633B7192E3D9B0092B468 /* Picture.m in Sources */,
 				11EF9E7B192BE246000C6DD0 /* ViewController.m in Sources */,
+				11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */,
 				11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */,
 				11EF9E72192BE246000C6DD0 /* AppDelegate.m in Sources */,
 				11B633BA192E3D9B0092B468 /* Photographer.m in Sources */,
