@@ -10,10 +10,22 @@
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uploadedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="takenIn" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Place" inverseName="pictures" inverseEntity="Place" syncable="YES"/>
         <relationship name="whoTook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Photographer" inverseName="pictures" inverseEntity="Photographer" syncable="YES"/>
     </entity>
+    <entity name="Place" representedClassName="Place" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="isIn" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="places" inverseEntity="Region" syncable="YES"/>
+        <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Picture" inverseName="takenIn" inverseEntity="Picture" syncable="YES"/>
+    </entity>
+    <entity name="Region" representedClassName="Region" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="places" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Place" inverseName="isIn" inverseEntity="Place" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Picture" positionX="-6444" positionY="-2007" width="128" height="133"/>
         <element name="Photographer" positionX="-6147" positionY="-1998" width="128" height="73"/>
+        <element name="Picture" positionX="-6444" positionY="-2007" width="128" height="148"/>
+        <element name="Place" positionX="-6435" positionY="-2169" width="128" height="88"/>
+        <element name="Region" positionX="-6167" positionY="-2169" width="128" height="73"/>
     </elements>
 </model>
