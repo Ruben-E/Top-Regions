@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		110C4BEC193394F90070D63F /* Photographer+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 110C4BEB193394F90070D63F /* Photographer+Create.m */; };
+		110C4BF01933972A0070D63F /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 110C4BEF1933972A0070D63F /* CoreDataTableViewController.m */; };
 		11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */; };
 		11B633B7192E3D9B0092B468 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633B6192E3D9B0092B468 /* Picture.m */; };
 		11B633BA192E3D9B0092B468 /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633B9192E3D9B0092B468 /* Photographer.m */; };
@@ -43,6 +44,8 @@
 /* Begin PBXFileReference section */
 		110C4BEA193394F90070D63F /* Photographer+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Photographer+Create.h"; sourceTree = "<group>"; };
 		110C4BEB193394F90070D63F /* Photographer+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photographer+Create.m"; sourceTree = "<group>"; };
+		110C4BEE1933972A0070D63F /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
+		110C4BEF1933972A0070D63F /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
 		11B633AC192E3B590092B468 /* TopRegions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TopRegions.xcdatamodel; sourceTree = "<group>"; };
 		11B633B5192E3D9B0092B468 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
 		11B633B6192E3D9B0092B468 /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
@@ -99,6 +102,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		110C4BED1933972A0070D63F /* CoreDataTableViewController */ = {
+			isa = PBXGroup;
+			children = (
+				110C4BEE1933972A0070D63F /* CoreDataTableViewController.h */,
+				110C4BEF1933972A0070D63F /* CoreDataTableViewController.m */,
+			);
+			path = CoreDataTableViewController;
+			sourceTree = "<group>";
+		};
 		11B633B4192E3CF20092B468 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -162,6 +174,7 @@
 				11EF9E71192BE246000C6DD0 /* AppDelegate.m */,
 				11EF9E7A192BE246000C6DD0 /* ViewController.m */,
 				11EF9E7C192BE246000C6DD0 /* Images.xcassets */,
+				110C4BED1933972A0070D63F /* CoreDataTableViewController */,
 				11B633C2192E482E0092B468 /* FlickrFetcher */,
 				11EF9E76192BE246000C6DD0 /* Main_iPad.storyboard */,
 				11EF9E73192BE246000C6DD0 /* Main_iPhone.storyboard */,
@@ -303,6 +316,7 @@
 				11EF9E7B192BE246000C6DD0 /* ViewController.m in Sources */,
 				11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */,
 				110C4BEC193394F90070D63F /* Photographer+Create.m in Sources */,
+				110C4BF01933972A0070D63F /* CoreDataTableViewController.m in Sources */,
 				11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */,
 				11EF9E72192BE246000C6DD0 /* AppDelegate.m in Sources */,
 				11B633BA192E3D9B0092B468 /* Photographer.m in Sources */,
