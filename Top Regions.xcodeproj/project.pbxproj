@@ -13,6 +13,7 @@
 		11B0BA481933997D00B9FA23 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA471933997D00B9FA23 /* Picture.m */; };
 		11B0BA4B1933997D00B9FA23 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA4A1933997D00B9FA23 /* Place.m */; };
 		11B0BA4E1933997D00B9FA23 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA4D1933997D00B9FA23 /* Region.m */; };
+		11B0BA5419339B9800B9FA23 /* TopRegionsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */; };
 		11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */; };
 		11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633BC192E3E120092B468 /* Picture+Flickr.m */; };
 		11B633C1192E481F0092B468 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633C0192E481F0092B468 /* FlickrFetcher.m */; };
@@ -56,6 +57,8 @@
 		11B0BA4A1933997D00B9FA23 /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
 		11B0BA4C1933997D00B9FA23 /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
 		11B0BA4D1933997D00B9FA23 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
+		11B0BA5219339B9800B9FA23 /* TopRegionsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopRegionsCDTVC.h; path = ../TopRegionsCDTVC.h; sourceTree = "<group>"; };
+		11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopRegionsCDTVC.m; path = ../TopRegionsCDTVC.m; sourceTree = "<group>"; };
 		11B633AC192E3B590092B468 /* TopRegions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TopRegions.xcdatamodel; sourceTree = "<group>"; };
 		11B633BB192E3E120092B468 /* Picture+Flickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Picture+Flickr.h"; sourceTree = "<group>"; };
 		11B633BC192E3E120092B468 /* Picture+Flickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Picture+Flickr.m"; sourceTree = "<group>"; };
@@ -149,10 +152,10 @@
 		11EF9E55192BE246000C6DD0 = {
 			isa = PBXGroup;
 			children = (
-				11EF9E67192BE246000C6DD0 /* Top Regions */,
-				11EF9E89192BE246000C6DD0 /* Top RegionsTests */,
 				11EF9E60192BE246000C6DD0 /* Frameworks */,
 				11EF9E5F192BE246000C6DD0 /* Products */,
+				11EF9E67192BE246000C6DD0 /* Top Regions */,
+				11EF9E89192BE246000C6DD0 /* Top RegionsTests */,
 			);
 			sourceTree = "<group>";
 		};
@@ -179,9 +182,9 @@
 		11EF9E67192BE246000C6DD0 /* Top Regions */ = {
 			isa = PBXGroup;
 			children = (
-				11EF9E70192BE246000C6DD0 /* AppDelegate.h */,
+				11B0BA5219339B9800B9FA23 /* TopRegionsCDTVC.h */,
 				11EF9E79192BE246000C6DD0 /* ViewController.h */,
-				11EF9E71192BE246000C6DD0 /* AppDelegate.m */,
+				11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */,
 				11EF9E7A192BE246000C6DD0 /* ViewController.m */,
 				11EF9E7C192BE246000C6DD0 /* Images.xcassets */,
 				110C4BED1933972A0070D63F /* CoreDataTableViewController */,
@@ -198,6 +201,8 @@
 		11EF9E68192BE246000C6DD0 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				11EF9E70192BE246000C6DD0 /* AppDelegate.h */,
+				11EF9E71192BE246000C6DD0 /* AppDelegate.m */,
 				11EF9E69192BE246000C6DD0 /* Top Regions-Info.plist */,
 				11EF9E6A192BE246000C6DD0 /* InfoPlist.strings */,
 				11EF9E6D192BE246000C6DD0 /* main.m */,
@@ -324,6 +329,7 @@
 			files = (
 				11B0BA481933997D00B9FA23 /* Picture.m in Sources */,
 				11EF9E7B192BE246000C6DD0 /* ViewController.m in Sources */,
+				11B0BA5419339B9800B9FA23 /* TopRegionsCDTVC.m in Sources */,
 				11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */,
 				11B0BA4E1933997D00B9FA23 /* Region.m in Sources */,
 				11B0BA4B1933997D00B9FA23 /* Place.m in Sources */,
