@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		110C4BEC193394F90070D63F /* Photographer+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 110C4BEB193394F90070D63F /* Photographer+Create.m */; };
 		11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */; };
 		11B633B7192E3D9B0092B468 /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633B6192E3D9B0092B468 /* Picture.m */; };
 		11B633BA192E3D9B0092B468 /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633B9192E3D9B0092B468 /* Photographer.m */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		110C4BEA193394F90070D63F /* Photographer+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Photographer+Create.h"; sourceTree = "<group>"; };
+		110C4BEB193394F90070D63F /* Photographer+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photographer+Create.m"; sourceTree = "<group>"; };
 		11B633AC192E3B590092B468 /* TopRegions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TopRegions.xcdatamodel; sourceTree = "<group>"; };
 		11B633B5192E3D9B0092B468 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
 		11B633B6192E3D9B0092B468 /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
@@ -99,9 +102,11 @@
 		11B633B4192E3CF20092B468 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				110C4BEA193394F90070D63F /* Photographer+Create.h */,
 				11B633B8192E3D9B0092B468 /* Photographer.h */,
 				11B633BB192E3E120092B468 /* Picture+Flickr.h */,
 				11B633B5192E3D9B0092B468 /* Picture.h */,
+				110C4BEB193394F90070D63F /* Photographer+Create.m */,
 				11B633B9192E3D9B0092B468 /* Photographer.m */,
 				11B633BC192E3E120092B468 /* Picture+Flickr.m */,
 				11B633B6192E3D9B0092B468 /* Picture.m */,
@@ -297,6 +302,7 @@
 				11B633B7192E3D9B0092B468 /* Picture.m in Sources */,
 				11EF9E7B192BE246000C6DD0 /* ViewController.m in Sources */,
 				11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */,
+				110C4BEC193394F90070D63F /* Photographer+Create.m in Sources */,
 				11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */,
 				11EF9E72192BE246000C6DD0 /* AppDelegate.m in Sources */,
 				11B633BA192E3D9B0092B468 /* Photographer.m in Sources */,
