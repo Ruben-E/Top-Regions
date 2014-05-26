@@ -10,4 +10,6 @@
 
 @interface DatabaseHelper : NSObject
 
++ (UIManagedDocument *)managedDocument;
+
 @end
