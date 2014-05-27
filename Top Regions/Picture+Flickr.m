@@ -42,7 +42,9 @@
 }
 
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
-    
+    for (NSDictionary *picture in pictures) {
+        [self pictureWithFlickrInfo:picture inManagedObjectContext:context];
+    }
 }
 
 @end

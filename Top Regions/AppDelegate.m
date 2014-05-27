@@ -11,10 +11,10 @@
 #import "Picture+Flickr.h"
 #import "DatabaseHelper.h"
 
-@interface AppDelegate() <NSURLSessionDownloadDelegate>
-@property (copy, nonatomic) void (^flickrDownloadBackgroundURLSessionCompletionHandler)();
-@property (strong, nonatomic) NSURLSession *flickrDownloadSession;
-@property (strong, nonatomic) NSTimer *flickrForegroundFetchTimer;
+@interface AppDelegate () <NSURLSessionDownloadDelegate>
+@property(copy, nonatomic) void (^flickrDownloadBackgroundURLSessionCompletionHandler)();
+@property(strong, nonatomic) NSURLSession *flickrDownloadSession;
+@property(strong, nonatomic) NSTimer *flickrForegroundFetchTimer;
 @end
 
 #define FLICKR_FETCH @"Flickr just uploaded fetch"
@@ -22,8 +22,7 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [self startFlickrFetch];
     return YES;
 }
@@ -42,8 +41,7 @@
     }];
 }
 
-- (NSURLSession *)flickrDownloadSession
-{
+- (NSURLSession *)flickrDownloadSession {
     if (!_flickrDownloadSession) {
         static dispatch_once_t onceToken;
         dispatch_once(&onceToken, ^{
@@ -52,12 +50,11 @@
             _flickrDownloadSession = [NSURLSession sessionWithConfiguration:urlSessionConfig delegate:self delegateQueue:nil];
         });
     }
-    
+
     return _flickrDownloadSession;
 }
 
-- (NSArray *)flickrPhotosAtURL:(NSURL *)url
-{
+- (NSArray *)flickrPhotosAtURL:(NSURL *)url {
     NSDictionary *flickrPropertyList;
     NSData *flickrJSONData = [NSData dataWithContentsOfURL:url];  // will block if url is not local!
     if (flickrJSONData) {
@@ -70,8 +67,7 @@
 
 - (void)loadFlickrPhotosFromLocalURL:(NSURL *)localFile
                          intoContext:(NSManagedObjectContext *)context
-                 andThenExecuteBlock:(void(^)())whenDone
-{
+                 andThenExecuteBlock:(void (^)())whenDone {
     if (context) {
         NSArray *pictures = [self flickrPhotosAtURL:localFile];
         [context performBlock:^{
@@ -86,15 +82,28 @@
 
 #pragma mark - NSURLSessionDownloadDelegate
 
-- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)localFile
-{
-    if ([downloadTask.taskDescription isEqualToString:FLICKR_FETCH]) {
-        [self loadFlickrPhotosFromLocalURL:localFile
-                               intoContext:[DatabaseHelper context]
-                       andThenExecuteBlock:^{
-                           [self flickrDownloadTasksMightBeComplete];
-                       }
-         ];
+- (void)URLSession:(NSURLSession *)session
+             downloadTask:(NSURLSessionDownloadTask *)downloadTask
+didFinishDownloadingToURL:(NSURL *)localFile {
+//    if ([downloadTask.taskDescription isEqualToString:FLICKR_FETCH]) {
+//        [self loadFlickrPhotosFromLocalURL:localFile
+//                               intoContext:[DatabaseHelper context]
+//                       andThenExecuteBlock:^{
+//                           [self flickrDownloadTasksMightBeComplete];
+//                       }
+//         ];
+//    }
+    if ([downloadTask.description isEqualToString:FLICKR_FETCH]) {
+        NSManagedObjectContext *context = [DatabaseHelper context];
+        if (context) {
+            NSArray *pictures = [self flickrPhotosAtURL:localFile];
+            [context performBlock:^{
+                [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:context];
+                [context save:NULL];
+            }];
+        } else {
+            [self flickrDownloadTasksMightBeComplete];
+        }
     }
 }
 
@@ -102,18 +111,29 @@
 - (void)URLSession:(NSURLSession *)session
       downloadTask:(NSURLSessionDownloadTask *)downloadTask
  didResumeAtOffset:(int64_t)fileOffset
-expectedTotalBytes:(int64_t)expectedTotalBytes
-{
+expectedTotalBytes:(int64_t)expectedTotalBytes {
 }
 
 // required by the protocol
 - (void)URLSession:(NSURLSession *)session
       downloadTask:(NSURLSessionDownloadTask *)downloadTask
       didWriteData:(int64_t)bytesWritten
- totalBytesWritten:(int64_t)totalBytesWritten
-totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite
-{
+        totalBytesWritten:(int64_t)totalBytesWritten
+totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 }
 
+- (void)flickrDownloadTasksMightBeComplete {
+    if (self.flickrDownloadBackgroundURLSessionCompletionHandler) {
+        [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+            if (![downloadTasks count]) {
+                void (^completionHandler)() = self.flickrDownloadBackgroundURLSessionCompletionHandler;
+                self.flickrDownloadBackgroundURLSessionCompletionHandler = nil;
+                if (completionHandler) {
+                    completionHandler();
+                }
+            }
+        }];
+    }
+}
 
 @end
