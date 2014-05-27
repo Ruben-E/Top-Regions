@@ -50,6 +50,7 @@
 		110C4BEB193394F90070D63F /* Photographer+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photographer+Create.m"; sourceTree = "<group>"; };
 		110C4BEE1933972A0070D63F /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		110C4BEF1933972A0070D63F /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
+		11AF95571934F3F6006ADD1D /* PicturesDatabaseAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PicturesDatabaseAvailability.h; sourceTree = "<group>"; };
 		11B0BA431933997C00B9FA23 /* Photographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photographer.h; sourceTree = "<group>"; };
 		11B0BA441933997C00B9FA23 /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
 		11B0BA461933997D00B9FA23 /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
@@ -194,6 +195,7 @@
 		11EF9E67192BE246000C6DD0 /* Top Regions */ = {
 			isa = PBXGroup;
 			children = (
+				11AF95571934F3F6006ADD1D /* PicturesDatabaseAvailability.h */,
 				11B0BA5219339B9800B9FA23 /* TopRegionsCDTVC.h */,
 				11EF9E79192BE246000C6DD0 /* ViewController.h */,
 				11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */,
