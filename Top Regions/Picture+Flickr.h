@@ -1,5 +1,5 @@
 //
-//  Picture+Flickr.h
+//  Picture+Create.h
 //  Top Regions
 //
 //  Created by Ruben Ernst on 22-05-14.

@@ -2,7 +2,7 @@
 //  Picture.m
 //  Top Regions
 //
-//  Created by Ruben Ernst on 26-05-14.
+//  Created by Ruben Ernst on 28-05-14.
 //  Copyright (c) 2014 Ruben Ernst. All rights reserved.
 //
 
@@ -18,7 +18,7 @@
 @dynamic title;
 @dynamic uploadedAt;
 @dynamic url;
-@dynamic whoTook;
 @dynamic takenIn;
+@dynamic whoTook;
 
 @end

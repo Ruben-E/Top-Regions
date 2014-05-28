@@ -7,4 +7,6 @@
 #import "Place.h"
 
 @interface Place (Create)
++ (Place *)placeWithPlaceId:(NSString *)placeId
+     inManagedObjectContext:(NSManagedObjectContext *)context;
 @end
