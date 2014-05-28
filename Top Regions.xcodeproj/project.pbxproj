@@ -32,6 +32,8 @@
 		11EF9E86192BE246000C6DD0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E65192BE246000C6DD0 /* UIKit.framework */; };
 		11EF9E8E192BE246000C6DD0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF9E8C192BE246000C6DD0 /* InfoPlist.strings */; };
 		11EF9E90192BE246000C6DD0 /* Top_RegionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF9E8F192BE246000C6DD0 /* Top_RegionsTests.m */; };
+		F07D879A0C2A6B39F82DA613 /* Region+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = F07D886466A20C31FB7954BE /* Region+Create.m */; };
+		F07D8C86F1EBDE5036E86C7D /* Place+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = F07D8E80B3900E9C9B5B5FA9 /* Place+Create.m */; };
 		F07D8D3CD175574CB5B30595 /* DocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F07D8E0538B568B351F0DCF9 /* DocumentHandler.m */; };
 /* End PBXBuildFile section */
 
@@ -87,8 +89,12 @@
 		11EF9E8B192BE246000C6DD0 /* Top RegionsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Top RegionsTests-Info.plist"; sourceTree = "<group>"; };
 		11EF9E8D192BE246000C6DD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		11EF9E8F192BE246000C6DD0 /* Top_RegionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Top_RegionsTests.m; sourceTree = "<group>"; };
+		F07D84BE0B4CFA0AFAA55D6A /* Place+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Place+Create.h"; sourceTree = "<group>"; };
+		F07D886466A20C31FB7954BE /* Region+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Region+Create.m"; sourceTree = "<group>"; };
 		F07D8A1AB95C4BD567F3C260 /* DocumentHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentHandler.h; sourceTree = "<group>"; };
+		F07D8AA9FDA93B7826352FF2 /* Region+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Region+Create.h"; sourceTree = "<group>"; };
 		F07D8E0538B568B351F0DCF9 /* DocumentHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentHandler.m; sourceTree = "<group>"; };
+		F07D8E80B3900E9C9B5B5FA9 /* Place+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Place+Create.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +154,10 @@
 				11B0BA471933997D00B9FA23 /* Picture.m */,
 				11B0BA4A1933997D00B9FA23 /* Place.m */,
 				11B0BA4D1933997D00B9FA23 /* Region.m */,
+				F07D8E80B3900E9C9B5B5FA9 /* Place+Create.m */,
+				F07D84BE0B4CFA0AFAA55D6A /* Place+Create.h */,
+				F07D886466A20C31FB7954BE /* Region+Create.m */,
+				F07D8AA9FDA93B7826352FF2 /* Region+Create.h */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -356,6 +366,8 @@
 				11B633C1192E481F0092B468 /* FlickrFetcher.m in Sources */,
 				11EF9E6E192BE246000C6DD0 /* main.m in Sources */,
 				F07D8D3CD175574CB5B30595 /* DocumentHandler.m in Sources */,
+				F07D8C86F1EBDE5036E86C7D /* Place+Create.m in Sources */,
+				F07D879A0C2A6B39F82DA613 /* Region+Create.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
