@@ -30,17 +30,20 @@
 }
 
 - (void)startFlickrFetch {
-    [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
-        if (![downloadTasks count]) {
-            NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
-            NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:url];
-            task.taskDescription = FLICKR_FETCH;
-            [task resume];
-        } else {
-            for (NSURLSessionDownloadTask *task in downloadTasks) {
+    [[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+        self.managedObjectContext = [document managedObjectContext];
+        [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
+            if (![downloadTasks count]) {
+                NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
+                NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:url];
+                task.taskDescription = FLICKR_FETCH;
                 [task resume];
+            } else {
+                for (NSURLSessionDownloadTask *task in downloadTasks) {
+                    [task resume];
+                }
             }
-        }
+        }];
     }];
 }
 
@@ -98,18 +101,14 @@ didFinishDownloadingToURL:(NSURL *)localFile {
 //    }
     if ([downloadTask.taskDescription isEqualToString:FLICKR_FETCH]) {
         NSArray *pictures = [self flickrPhotosAtURL:localFile];
-        //NSManagedObjectContext *context = [DatabaseHelper context];
-        [[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
-            self.managedObjectContext = [document managedObjectContext];
-            if (self.managedObjectContext) {
-                [self.managedObjectContext performBlock:^{
-                    [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:self.managedObjectContext];
-                    [self.managedObjectContext save:NULL];
-                }];
-            } else {
-                [self flickrDownloadTasksMightBeComplete];
-            }
-        }];
+        if (self.managedObjectContext) {
+            [self.managedObjectContext performBlock:^{
+                [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:self.managedObjectContext];
+                [self.managedObjectContext save:NULL];
+            }];
+        } else {
+            [self flickrDownloadTasksMightBeComplete];
+        }
     }
 }
 
