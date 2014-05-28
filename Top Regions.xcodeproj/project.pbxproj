@@ -14,7 +14,6 @@
 		11B0BA4B1933997D00B9FA23 /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA4A1933997D00B9FA23 /* Place.m */; };
 		11B0BA4E1933997D00B9FA23 /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA4D1933997D00B9FA23 /* Region.m */; };
 		11B0BA5419339B9800B9FA23 /* TopRegionsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */; };
-		11B0BA581933A86500B9FA23 /* DatabaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA571933A86500B9FA23 /* DatabaseHelper.m */; };
 		11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */; };
 		11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633BC192E3E120092B468 /* Picture+Flickr.m */; };
 		11B633C1192E481F0092B468 /* FlickrFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633C0192E481F0092B468 /* FlickrFetcher.m */; };
@@ -33,6 +32,7 @@
 		11EF9E86192BE246000C6DD0 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11EF9E65192BE246000C6DD0 /* UIKit.framework */; };
 		11EF9E8E192BE246000C6DD0 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 11EF9E8C192BE246000C6DD0 /* InfoPlist.strings */; };
 		11EF9E90192BE246000C6DD0 /* Top_RegionsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 11EF9E8F192BE246000C6DD0 /* Top_RegionsTests.m */; };
+		F07D8D3CD175574CB5B30595 /* DocumentHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = F07D8E0538B568B351F0DCF9 /* DocumentHandler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,8 +61,6 @@
 		11B0BA4D1933997D00B9FA23 /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
 		11B0BA5219339B9800B9FA23 /* TopRegionsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopRegionsCDTVC.h; path = ../TopRegionsCDTVC.h; sourceTree = "<group>"; };
 		11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopRegionsCDTVC.m; path = ../TopRegionsCDTVC.m; sourceTree = "<group>"; };
-		11B0BA561933A86500B9FA23 /* DatabaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DatabaseHelper.h; sourceTree = "<group>"; };
-		11B0BA571933A86500B9FA23 /* DatabaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DatabaseHelper.m; sourceTree = "<group>"; };
 		11B633AC192E3B590092B468 /* TopRegions.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TopRegions.xcdatamodel; sourceTree = "<group>"; };
 		11B633BB192E3E120092B468 /* Picture+Flickr.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Picture+Flickr.h"; sourceTree = "<group>"; };
 		11B633BC192E3E120092B468 /* Picture+Flickr.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Picture+Flickr.m"; sourceTree = "<group>"; };
@@ -89,6 +87,8 @@
 		11EF9E8B192BE246000C6DD0 /* Top RegionsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Top RegionsTests-Info.plist"; sourceTree = "<group>"; };
 		11EF9E8D192BE246000C6DD0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		11EF9E8F192BE246000C6DD0 /* Top_RegionsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Top_RegionsTests.m; sourceTree = "<group>"; };
+		F07D8A1AB95C4BD567F3C260 /* DocumentHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DocumentHandler.h; sourceTree = "<group>"; };
+		F07D8E0538B568B351F0DCF9 /* DocumentHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DocumentHandler.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,8 +127,8 @@
 		11B0BA551933A85400B9FA23 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				11B0BA561933A86500B9FA23 /* DatabaseHelper.h */,
-				11B0BA571933A86500B9FA23 /* DatabaseHelper.m */,
+				F07D8E0538B568B351F0DCF9 /* DocumentHandler.m */,
+				F07D8A1AB95C4BD567F3C260 /* DocumentHandler.h */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -354,8 +354,8 @@
 				11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */,
 				11EF9E72192BE246000C6DD0 /* AppDelegate.m in Sources */,
 				11B633C1192E481F0092B468 /* FlickrFetcher.m in Sources */,
-				11B0BA581933A86500B9FA23 /* DatabaseHelper.m in Sources */,
 				11EF9E6E192BE246000C6DD0 /* main.m in Sources */,
+				F07D8D3CD175574CB5B30595 /* DocumentHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

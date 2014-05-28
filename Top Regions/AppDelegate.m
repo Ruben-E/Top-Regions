@@ -9,12 +9,14 @@
 #import "AppDelegate.h"
 #import "FlickrFetcher.h"
 #import "Picture+Flickr.h"
-#import "DatabaseHelper.h"
+#import "DocumentHandler.h"
+#import "PicturesDatabaseAvailability.h"
 
 @interface AppDelegate () <NSURLSessionDownloadDelegate>
 @property(copy, nonatomic) void (^flickrDownloadBackgroundURLSessionCompletionHandler)();
 @property(strong, nonatomic) NSURLSession *flickrDownloadSession;
 @property(strong, nonatomic) NSTimer *flickrForegroundFetchTimer;
+@property(strong, nonatomic) NSManagedObjectContext *managedObjectContext;
 @end
 
 #define FLICKR_FETCH @"Flickr just uploaded fetch"
@@ -30,7 +32,8 @@
 - (void)startFlickrFetch {
     [self.flickrDownloadSession getTasksWithCompletionHandler:^(NSArray *dataTasks, NSArray *uploadTasks, NSArray *downloadTasks) {
         if (![downloadTasks count]) {
-            NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:[FlickrFetcher URLforRecentGeoreferencedPhotos]];
+            NSURL *url = [FlickrFetcher URLforRecentGeoreferencedPhotos];
+            NSURLSessionDownloadTask *task = [self.flickrDownloadSession downloadTaskWithURL:url];
             task.taskDescription = FLICKR_FETCH;
             [task resume];
         } else {
@@ -93,17 +96,20 @@ didFinishDownloadingToURL:(NSURL *)localFile {
 //                       }
 //         ];
 //    }
-    if ([downloadTask.description isEqualToString:FLICKR_FETCH]) {
-        NSManagedObjectContext *context = [DatabaseHelper context];
-        if (context) {
-            NSArray *pictures = [self flickrPhotosAtURL:localFile];
-            [context performBlock:^{
-                [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:context];
-                [context save:NULL];
-            }];
-        } else {
-            [self flickrDownloadTasksMightBeComplete];
-        }
+    if ([downloadTask.taskDescription isEqualToString:FLICKR_FETCH]) {
+        NSArray *pictures = [self flickrPhotosAtURL:localFile];
+        //NSManagedObjectContext *context = [DatabaseHelper context];
+        [[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+            self.managedObjectContext = [document managedObjectContext];
+            if (self.managedObjectContext) {
+                [self.managedObjectContext performBlock:^{
+                    [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:self.managedObjectContext];
+                    [self.managedObjectContext save:NULL];
+                }];
+            } else {
+                [self flickrDownloadTasksMightBeComplete];
+            }
+        }];
     }
 }
 
@@ -133,6 +139,15 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
                 }
             }
         }];
+    }
+}
+
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
+    _managedObjectContext = managedObjectContext;
+
+    if (managedObjectContext) {
+        NSDictionary *userInfo = @{PicturesDatabaseAvailabilityContext : managedObjectContext};
+        [[NSNotificationCenter defaultCenter] postNotificationName:PicturesDatabaseAvailabilityNotification object:self userInfo:userInfo];
     }
 }
 

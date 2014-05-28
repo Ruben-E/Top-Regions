@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Top Places Table View Controller - Top Places-->
+        <!--Top RegionsCDTVC - Top Places-->
         <scene sceneID="BNe-xW-Wn5">
             <objects>
-                <tableViewController id="Nb6-Tc-9Ou" customClass="TopPlacesTableViewController" sceneMemberID="viewController">
+                <tableViewController id="Nb6-Tc-9Ou" customClass="TopRegionsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="4MS-dB-tyz">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

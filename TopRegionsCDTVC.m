@@ -7,7 +7,9 @@
 //
 
 #import "TopRegionsCDTVC.h"
+#import "PicturesDatabaseAvailability.h"
 #import "Region.h"
+#import "Picture.h"
 
 @interface TopRegionsCDTVC ()
 
@@ -15,25 +17,29 @@
 
 @implementation TopRegionsCDTVC
 
-- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
-{
+- (void)awakeFromNib {
+    [[NSNotificationCenter defaultCenter] addObserverForName:PicturesDatabaseAvailabilityNotification object:nil queue:nil usingBlock:^(NSNotification *notification){
+       self.managedObjectContext = notification.userInfo[PicturesDatabaseAvailabilityContext];
+    }];
+}
+
+- (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     _managedObjectContext = managedObjectContext;
-    
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
     request.predicate = nil;
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
-    
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)]];
+
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
-    
-    Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    
-    cell.textLabel.text = region.name;
-    
+
+    Picture *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+    cell.textLabel.text = region.title;
+
     return cell;
 }
 
