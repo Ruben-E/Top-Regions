@@ -102,4 +102,9 @@
     return [place valueForKeyPath:FLICKR_PLACE_REGION_NAME];
 }
 
++ (NSString *)extractRegionIdFromPlaceInformation:(NSDictionary *)place
+{
+    return [place valueForKeyPath:FLICKR_PLACE_REGION_PLACE_ID];
+}
+
 @end

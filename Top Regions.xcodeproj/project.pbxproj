@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		110C4BEC193394F90070D63F /* Photographer+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 110C4BEB193394F90070D63F /* Photographer+Create.m */; };
 		110C4BF01933972A0070D63F /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 110C4BEF1933972A0070D63F /* CoreDataTableViewController.m */; };
-		11A8EC7519362E7400F4160C /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8EC7419362E7400F4160C /* Photographer.m */; };
-		11A8EC7819362E7400F4160C /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8EC7719362E7400F4160C /* Region.m */; };
-		11A8EC7B19362E7400F4160C /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8EC7A19362E7400F4160C /* Place.m */; };
-		11A8EC7E19362E7400F4160C /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 11A8EC7D19362E7400F4160C /* Picture.m */; };
+		111A9DCA1939DA4C006B64AA /* Place.m in Sources */ = {isa = PBXBuildFile; fileRef = 111A9DC91939DA4C006B64AA /* Place.m */; };
+		111A9DCD1939DA4D006B64AA /* Photographer.m in Sources */ = {isa = PBXBuildFile; fileRef = 111A9DCC1939DA4D006B64AA /* Photographer.m */; };
+		111A9DD01939DA4D006B64AA /* Region.m in Sources */ = {isa = PBXBuildFile; fileRef = 111A9DCF1939DA4D006B64AA /* Region.m */; };
+		111A9DD31939DA4D006B64AA /* Picture.m in Sources */ = {isa = PBXBuildFile; fileRef = 111A9DD21939DA4D006B64AA /* Picture.m */; };
 		11B0BA5419339B9800B9FA23 /* TopRegionsCDTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */; };
 		11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 11B633AB192E3B590092B468 /* TopRegions.xcdatamodeld */; };
 		11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */ = {isa = PBXBuildFile; fileRef = 11B633BC192E3E120092B468 /* Picture+Flickr.m */; };
@@ -52,14 +52,14 @@
 		110C4BEB193394F90070D63F /* Photographer+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photographer+Create.m"; sourceTree = "<group>"; };
 		110C4BEE1933972A0070D63F /* CoreDataTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataTableViewController.h; sourceTree = "<group>"; };
 		110C4BEF1933972A0070D63F /* CoreDataTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataTableViewController.m; sourceTree = "<group>"; };
-		11A8EC7319362E7400F4160C /* Photographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photographer.h; sourceTree = "<group>"; };
-		11A8EC7419362E7400F4160C /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
-		11A8EC7619362E7400F4160C /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
-		11A8EC7719362E7400F4160C /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
-		11A8EC7919362E7400F4160C /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
-		11A8EC7A19362E7400F4160C /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
-		11A8EC7C19362E7400F4160C /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
-		11A8EC7D19362E7400F4160C /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
+		111A9DC81939DA4C006B64AA /* Place.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Place.h; sourceTree = "<group>"; };
+		111A9DC91939DA4C006B64AA /* Place.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Place.m; sourceTree = "<group>"; };
+		111A9DCB1939DA4D006B64AA /* Photographer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photographer.h; sourceTree = "<group>"; };
+		111A9DCC1939DA4D006B64AA /* Photographer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photographer.m; sourceTree = "<group>"; };
+		111A9DCE1939DA4D006B64AA /* Region.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Region.h; sourceTree = "<group>"; };
+		111A9DCF1939DA4D006B64AA /* Region.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Region.m; sourceTree = "<group>"; };
+		111A9DD11939DA4D006B64AA /* Picture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Picture.h; sourceTree = "<group>"; };
+		111A9DD21939DA4D006B64AA /* Picture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Picture.m; sourceTree = "<group>"; };
 		11AF95571934F3F6006ADD1D /* PicturesDatabaseAvailability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PicturesDatabaseAvailability.h; sourceTree = "<group>"; };
 		11B0BA5219339B9800B9FA23 /* TopRegionsCDTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TopRegionsCDTVC.h; path = ../TopRegionsCDTVC.h; sourceTree = "<group>"; };
 		11B0BA5319339B9800B9FA23 /* TopRegionsCDTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TopRegionsCDTVC.m; path = ../TopRegionsCDTVC.m; sourceTree = "<group>"; };
@@ -142,14 +142,14 @@
 		11B633B4192E3CF20092B468 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				11A8EC7C19362E7400F4160C /* Picture.h */,
-				11A8EC7D19362E7400F4160C /* Picture.m */,
-				11A8EC7919362E7400F4160C /* Place.h */,
-				11A8EC7A19362E7400F4160C /* Place.m */,
-				11A8EC7619362E7400F4160C /* Region.h */,
-				11A8EC7719362E7400F4160C /* Region.m */,
-				11A8EC7319362E7400F4160C /* Photographer.h */,
-				11A8EC7419362E7400F4160C /* Photographer.m */,
+				111A9DD11939DA4D006B64AA /* Picture.h */,
+				111A9DD21939DA4D006B64AA /* Picture.m */,
+				111A9DCE1939DA4D006B64AA /* Region.h */,
+				111A9DCF1939DA4D006B64AA /* Region.m */,
+				111A9DCB1939DA4D006B64AA /* Photographer.h */,
+				111A9DCC1939DA4D006B64AA /* Photographer.m */,
+				111A9DC81939DA4C006B64AA /* Place.h */,
+				111A9DC91939DA4C006B64AA /* Place.m */,
 				110C4BEA193394F90070D63F /* Photographer+Create.h */,
 				11B633BB192E3E120092B468 /* Picture+Flickr.h */,
 				110C4BEB193394F90070D63F /* Photographer+Create.m */,
@@ -352,19 +352,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11A8EC7E19362E7400F4160C /* Picture.m in Sources */,
+				111A9DD31939DA4D006B64AA /* Picture.m in Sources */,
 				11EF9E7B192BE246000C6DD0 /* ViewController.m in Sources */,
 				11B0BA5419339B9800B9FA23 /* TopRegionsCDTVC.m in Sources */,
 				11B633BD192E3E120092B468 /* Picture+Flickr.m in Sources */,
 				110C4BEC193394F90070D63F /* Photographer+Create.m in Sources */,
 				110C4BF01933972A0070D63F /* CoreDataTableViewController.m in Sources */,
-				11A8EC7819362E7400F4160C /* Region.m in Sources */,
-				11A8EC7B19362E7400F4160C /* Place.m in Sources */,
+				111A9DCA1939DA4C006B64AA /* Place.m in Sources */,
+				111A9DD01939DA4D006B64AA /* Region.m in Sources */,
 				11B633AD192E3B590092B468 /* TopRegions.xcdatamodeld in Sources */,
 				11EF9E72192BE246000C6DD0 /* AppDelegate.m in Sources */,
 				11B633C1192E481F0092B468 /* FlickrFetcher.m in Sources */,
 				11EF9E6E192BE246000C6DD0 /* main.m in Sources */,
-				11A8EC7519362E7400F4160C /* Photographer.m in Sources */,
+				111A9DCD1939DA4D006B64AA /* Photographer.m in Sources */,
 				F07D8D3CD175574CB5B30595 /* DocumentHandler.m in Sources */,
 				F07D8C86F1EBDE5036E86C7D /* Place+Create.m in Sources */,
 				F07D879A0C2A6B39F82DA613 /* Region+Create.m in Sources */,
