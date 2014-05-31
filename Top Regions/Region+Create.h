@@ -7,4 +7,5 @@
 #import "Region.h"
 
 @interface Region (Create)
++ (Region *)RegionByRegion:(Region *)regionInput inManagedObjectContext:(NSManagedObjectContext *)context;
 @end
