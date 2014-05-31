@@ -53,7 +53,9 @@
             photographer.flickrId = photographerInput.flickrId;
         } else {
             photographer = [matches lastObject];
-            photographer.name = photographerInput.name;
+            if ([photographer.name isEqualToString:photographerInput.name]) {
+                photographer.name = photographerInput.name;
+            }
         }
     }
 
