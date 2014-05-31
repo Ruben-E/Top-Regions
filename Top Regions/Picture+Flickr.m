@@ -23,22 +23,35 @@
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
     dispatch_queue_t placeQ =dispatch_queue_create("place fetcher", NULL);
     dispatch_async(placeQ, ^{
-        for (NSDictionary *pictureDicionary in pictures) {
-            NSString *flickrId = pictureDicionary[FLICKR_PHOTO_ID];
+        NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
+        [context2 setPersistentStoreCoordinator:[context persistentStoreCoordinator]];
+
+        NSMutableDictionary *places = [[NSMutableDictionary alloc] init];
+
+        for (NSDictionary *pictureDictionary in pictures) {
+            NSString *flickrId = pictureDictionary[FLICKR_PHOTO_ID];
 
             NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
             request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
 
             NSError *error;
-            NSArray *matches = [context executeFetchRequest:request error:&error];
+            NSArray *matches = [context2 executeFetchRequest:request error:&error];
 
             if ([matches count] == 0) {
                 //[self pictureWithFlickrInfo:picture inManagedObjectContext:context];
-                NSURL *urlPlace = [FlickrFetcher URLforInformationAboutPlace:[pictureDicionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID]];
-                NSData *jsonResults = [NSData dataWithContentsOfURL:urlPlace];
-                NSDictionary *placeInformation = [NSJSONSerialization JSONObjectWithData:jsonResults
-                                                                                 options:0
-                                                                                   error:NULL];
+                NSString *picturePlaceId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
+                NSDictionary *placeInformation = [[NSDictionary alloc] init];
+
+                if (![places objectForKey:picturePlaceId]) {
+                    NSURL *urlPlace = [FlickrFetcher URLforInformationAboutPlace:picturePlaceId];
+                    NSData *jsonResults = [NSData dataWithContentsOfURL:urlPlace];
+                    placeInformation = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:NULL];
+
+                    [places setObject:placeInformation forKey:picturePlaceId];
+                } else {
+                    placeInformation = [places objectForKey:picturePlaceId];
+                }
+
                 dispatch_async(dispatch_get_main_queue(), ^{
                     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
                     request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
@@ -49,19 +62,19 @@
                     if (matches && !error && [matches count] == 0) {
                         Picture *picture = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:context];
                         picture.flickrId = flickrId;
-                        picture.title = [pictureDicionary valueForKeyPath:FLICKR_PHOTO_TITLE];
-                        picture.subtitle = [pictureDicionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+                        picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
+                        picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
 //                    picture.subtitle = @"";
-                        picture.url = [[FlickrFetcher URLforPhoto:pictureDicionary format:FlickrPhotoFormatLarge] absoluteString];
+                        picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
 
-                        NSString *photographerName = [pictureDicionary valueForKeyPath:FLICKR_PHOTO_OWNER];
-                        NSString *photographerId = [pictureDicionary valueForKeyPath:FLICKR_PHOTO_OWNER_ID];
+                        NSString *photographerName = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
+                        NSString *photographerId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER_ID];
 
-                        NSString *placeName = [FlickrFetcher extractNameOfPlace:[pictureDicionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID] fromPlaceInformation:pictureDicionary];
-                        NSString *placeId = [pictureDicionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
+                        NSString *placeName = [FlickrFetcher extractNameOfPlace:[pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID] fromPlaceInformation:pictureDictionary];
+                        NSString *placeId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
 
-                        NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInformation];
                         NSString *regionId = [FlickrFetcher extractRegionIdFromPlaceInformation:placeInformation];
+                        NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInformation];
 
                         NSEntityDescription *photographerEntity = [NSEntityDescription entityForName:@"Photographer" inManagedObjectContext:context];
                         NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
