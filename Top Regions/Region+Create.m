@@ -26,7 +26,7 @@
             region.flickrId = regionInput.flickrId;
         } else {
             region = [matches lastObject];
-            if ([region.name isEqualToString:regionInput.name]) {
+            if (![region.name isEqualToString:regionInput.name]) {
                 region.name = regionInput.name;
             }
         }

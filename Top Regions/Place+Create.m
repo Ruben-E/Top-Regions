@@ -25,7 +25,7 @@
             place.flickrId = placeInput.flickrId;
         } else {
             place = [matches lastObject];
-            if ([place.name isEqualToString:placeInput.name]) {
+            if (![place.name isEqualToString:placeInput.name]) {
                 place.name = placeInput.name;
             }
         }

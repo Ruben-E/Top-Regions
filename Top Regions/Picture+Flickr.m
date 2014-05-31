@@ -83,7 +83,11 @@
                         Region *region = [Region RegionByRegion:regionDomain inManagedObjectContext:context];
                         Photographer *photographer = [Photographer photographerByPhotographer:photographerDomain inManagedObjectContext:context];
 
-                        place.isIn = region;
+                        if (place.isIn && [place.isIn isKindOfClass:[Region class]]) {
+                            if (![place.isIn.flickrId isEqualToString:regionDomain.flickrId]) {
+                                place.isIn = region;
+                            }
+                        }
 
                         picture.takenIn = place;
                         picture.whoTook = photographer;
