@@ -6,12 +6,13 @@
 #import "Place+Create.h"
 
 @implementation Place (Create)
-+ (Place *)placeWithPlaceId:(NSString *)placeId inManagedObjectContext:(NSManagedObjectContext *)context {
++ (Place *)PlaceByPlace:(Place *)placeInput inManagedObjectContext:(NSManagedObjectContext *)context {
     Place *place = nil;
 
-    if ([placeId length]) {
+    if (placeInput.flickrId) {
+        NSString *flickrId = placeInput.flickrId;
         NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
-        request.predicate = [NSPredicate predicateWithFormat:@"placeId = %@", placeId];
+        request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
 
         NSError *error;
         NSArray *matches = [context executeFetchRequest:request error:&error];
@@ -19,10 +20,12 @@
         if (!matches || ([matches count] > 1)) {
             // handle error
         } else if (![matches count]) {
-            photographer = [NSEntityDescription insertNewObjectForEntityForName:@"Photographer" inManagedObjectContext:context];
-            photographer.name = name;
+            place = [NSEntityDescription insertNewObjectForEntityForName:@"Place" inManagedObjectContext:context];
+            place.name = placeInput.name;
+            place.flickrId = placeInput.flickrId;
         } else {
             place = [matches lastObject];
+            place.name = placeInput.name;
         }
     }
 
