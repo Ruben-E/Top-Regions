@@ -13,4 +13,7 @@
 + (Photographer *)photographerWithName:(NSString *)name
                 inManagedObjectContext:(NSManagedObjectContext *)context;
 
++ (Photographer *)photographerByPhotographer:(Photographer *)photographer
+                      inManagedObjectContext:(NSManagedObjectContext *)context;
+
 @end
