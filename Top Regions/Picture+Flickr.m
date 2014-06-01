@@ -100,13 +100,46 @@
                             }
                         }
 
+                        [region addPicturesObject:picture];
+
                         picture.takenIn = place;
                         picture.whoTook = photographer;
+
+
                     }
                 });
             }
         }
+
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self recountCountersInManagedObjectContext:context];
+        });
     });
+}
+
++ (void)recountCountersInManagedObjectContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *regionRequest = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+    NSFetchRequest *placeRequest = [NSFetchRequest fetchRequestWithEntityName:@"Place"];
+    NSFetchRequest *photographerRequest = [NSFetchRequest fetchRequestWithEntityName:@"Photographer"];
+
+    NSArray *regions = [context executeFetchRequest:regionRequest error:nil];
+    NSArray *places = [context executeFetchRequest:placeRequest error:nil];
+    NSArray *photographers = [context executeFetchRequest:photographerRequest error:nil];
+
+    for (Region *region in regions) {
+        NSLog(@"Region: number of pictures: %d", [region.pictures count]);
+        NSLog(@"Region: number of places: %d", [region.places count]);
+        region.picturesCount = [NSNumber numberWithInt:[region.pictures count]];
+        region.placesCount = [NSNumber numberWithInt:[region.places count]];
+    }
+
+    for (Place *place in places) {
+        place.picturesCount = [NSNumber numberWithInt:[place.pictures count]];
+    }
+
+    for (Photographer *photographer in photographers) {
+        photographer.picturesCount = [NSNumber numberWithInt:[photographer.pictures count]];
+    }
 }
 
 @end
