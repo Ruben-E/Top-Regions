@@ -4,7 +4,9 @@
         <attribute name="flickrId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picturesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="regionsCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Picture" inverseName="whoTook" inverseEntity="Picture" syncable="YES"/>
+        <relationship name="regions" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Region" inverseName="photographers" inverseEntity="Region" syncable="YES"/>
     </entity>
     <entity name="Picture" representedClassName="Picture" syncable="YES">
         <attribute name="flickrId" optional="YES" attributeType="String" syncable="YES"/>
@@ -26,15 +28,17 @@
     <entity name="Region" representedClassName="Region" syncable="YES">
         <attribute name="flickrId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="photographersCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="picturesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="placesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <relationship name="photographers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photographer" inverseName="regions" inverseEntity="Photographer" syncable="YES"/>
         <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Picture" inverseName="region" inverseEntity="Picture" syncable="YES"/>
         <relationship name="places" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Place" inverseName="isIn" inverseEntity="Place" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Photographer" positionX="-6167" positionY="-1807" width="128" height="103"/>
+        <element name="Photographer" positionX="-6084" positionY="-1801" width="128" height="133"/>
         <element name="Place" positionX="-6669" positionY="-2151" width="128" height="118"/>
-        <element name="Region" positionX="-6122" positionY="-2169" width="128" height="133"/>
+        <element name="Region" positionX="-5906" positionY="-2200" width="128" height="163"/>
         <element name="Picture" positionX="-6444" positionY="-1864" width="128" height="163"/>
     </elements>
 </model>
