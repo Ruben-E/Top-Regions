@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Picture, Place;
+@class Photographer, Picture, Place;
 
 @interface Region : NSManagedObject
 
@@ -17,8 +17,10 @@
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) NSNumber * picturesCount;
 @property (nonatomic, retain) NSNumber * placesCount;
+@property (nonatomic, retain) NSNumber * photographersCount;
 @property (nonatomic, retain) NSSet *places;
 @property (nonatomic, retain) NSSet *pictures;
+@property (nonatomic, retain) NSSet *photographers;
 @end
 
 @interface Region (CoreDataGeneratedAccessors)
@@ -32,5 +34,10 @@
 - (void)removePicturesObject:(Picture *)value;
 - (void)addPictures:(NSSet *)values;
 - (void)removePictures:(NSSet *)values;
+
+- (void)addPhotographersObject:(Photographer *)value;
+- (void)removePhotographersObject:(Photographer *)value;
+- (void)addPhotographers:(NSSet *)values;
+- (void)removePhotographers:(NSSet *)values;
 
 @end

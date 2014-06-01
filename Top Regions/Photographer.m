@@ -8,6 +8,7 @@
 
 #import "Photographer.h"
 #import "Picture.h"
+#import "Region.h"
 
 
 @implementation Photographer
@@ -15,6 +16,8 @@
 @dynamic flickrId;
 @dynamic name;
 @dynamic picturesCount;
+@dynamic regionsCount;
 @dynamic pictures;
+@dynamic regions;
 
 @end
