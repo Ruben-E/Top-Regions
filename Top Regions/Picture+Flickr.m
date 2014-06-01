@@ -59,12 +59,6 @@
                     NSArray *matches = [context executeFetchRequest:request error:&error];
 
                     if (matches && !error && [matches count] == 0) {
-                        Picture *picture = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:context];
-                        picture.flickrId = flickrId;
-                        picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
-                        picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-                        picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
-
                         NSString *photographerName = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
                         NSString *photographerId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER_ID];
 
@@ -74,38 +68,73 @@
                         NSString *regionId = [FlickrFetcher extractRegionIdFromPlaceInformation:placeInformation];
                         NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInformation];
 
-                        NSEntityDescription *photographerEntity = [NSEntityDescription entityForName:@"Photographer" inManagedObjectContext:context];
-                        NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
-                        NSEntityDescription *regionEntity = [NSEntityDescription entityForName:@"Region" inManagedObjectContext:context];
+                        if (regionId) {
+                            Picture *picture = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:context];
+                            picture.flickrId = flickrId;
+                            picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
+                            picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+                            picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
 
-                        Photographer *photographerDomain = [[NSManagedObject alloc] initWithEntity:photographerEntity insertIntoManagedObjectContext:nil];
-                        photographerDomain.flickrId = photographerId;
-                        photographerDomain.name = photographerName;
+                            NSEntityDescription *photographerEntity = [NSEntityDescription entityForName:@"Photographer" inManagedObjectContext:context];
+                            NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
+                            NSEntityDescription *regionEntity = [NSEntityDescription entityForName:@"Region" inManagedObjectContext:context];
 
-                        Place *placeDomain = [[NSManagedObject alloc] initWithEntity:placeEntity insertIntoManagedObjectContext:nil];
-                        placeDomain.flickrId = placeId;
-                        placeDomain.name = placeName;
+                            Photographer *photographerDomain = [[NSManagedObject alloc] initWithEntity:photographerEntity insertIntoManagedObjectContext:nil];
+                            photographerDomain.flickrId = photographerId;
+                            photographerDomain.name = photographerName;
 
-                        Region *regionDomain = [[NSManagedObject alloc] initWithEntity:regionEntity insertIntoManagedObjectContext:nil];
-                        regionDomain.flickrId = regionId;
-                        regionDomain.name = regionName;
+                            Place *placeDomain = [[NSManagedObject alloc] initWithEntity:placeEntity insertIntoManagedObjectContext:nil];
+                            placeDomain.flickrId = placeId;
+                            placeDomain.name = placeName;
 
-                        Place *place = [Place PlaceByPlace:placeDomain inManagedObjectContext:context];
-                        Region *region = [Region RegionByRegion:regionDomain inManagedObjectContext:context];
-                        Photographer *photographer = [Photographer photographerByPhotographer:photographerDomain inManagedObjectContext:context];
+                            Region *regionDomain = [[NSManagedObject alloc] initWithEntity:regionEntity insertIntoManagedObjectContext:nil];
+                            regionDomain.flickrId = regionId;
+                            regionDomain.name = regionName;
 
-                        if (place.isIn && [place.isIn isKindOfClass:[Region class]]) {
-                            if (![place.isIn.flickrId isEqualToString:regionDomain.flickrId]) {
-                                place.isIn = region;
+                            Place *place = [Place PlaceByPlace:placeDomain inManagedObjectContext:context];
+                            Region *region = [Region RegionByRegion:regionDomain inManagedObjectContext:context];
+                            Photographer *photographer = [Photographer photographerByPhotographer:photographerDomain inManagedObjectContext:context];
+
+                            if (place.isIn && [place.isIn isKindOfClass:[Region class]]) {
+                                if (![place.isIn.flickrId isEqualToString:regionDomain.flickrId]) {
+                                    place.isIn = region;
+                                }
                             }
+
+                            if (![[region valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
+                                [region addPicturesObject:picture];
+                                region.picturesCount = [NSNumber numberWithInt:[region.picturesCount intValue] + 1];
+                            }
+
+                            if (![[region valueForKeyPath:@"photographers.flickrId"] containsObject:photographer.flickrId]) {
+                                [region addPhotographersObject:photographer];
+                                region.photographersCount = [NSNumber numberWithInt:[region.photographersCount intValue] + 1];
+                            }
+
+                            if (![[region valueForKeyPath:@"places.flickrId"] containsObject:place.flickrId]) {
+                                [region addPlacesObject:place];
+                                region.placesCount = [NSNumber numberWithInt:[region.placesCount intValue] + 1];
+                            }
+
+                            if (![[place valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
+                                [place addPicturesObject:picture];
+                                place.picturesCount = [NSNumber numberWithInt:[place.picturesCount intValue] + 1];
+                            }
+
+                            if (![[photographer valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
+                                [photographer addPicturesObject:picture];
+                                photographer.picturesCount = [NSNumber numberWithInt:[photographer.picturesCount intValue] + 1];
+                            }
+
+                            if (![[photographer valueForKeyPath:@"regions.flickrId"] containsObject:region.flickrId]) {
+                                [photographer addRegionsObject:region];
+                                photographer.regionsCount = [NSNumber numberWithInt:[photographer.regionsCount intValue] + 1];
+                            }
+
+                            picture.takenIn = place;
+                            picture.whoTook = photographer;
+                            picture.region = region;
                         }
-
-                        [region addPicturesObject:picture];
-
-                        picture.takenIn = place;
-                        picture.whoTook = photographer;
-
-
                     }
                 });
             }
