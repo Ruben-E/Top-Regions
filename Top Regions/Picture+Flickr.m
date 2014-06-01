@@ -38,7 +38,6 @@
             NSArray *matches = [context2 executeFetchRequest:request error:&error];
 
             if ([matches count] == 0) {
-                //[self pictureWithFlickrInfo:picture inManagedObjectContext:context];
                 NSString *picturePlaceId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
                 NSDictionary *placeInformation = [[NSDictionary alloc] init];
 
@@ -64,7 +63,6 @@
                         picture.flickrId = flickrId;
                         picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
                         picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-//                    picture.subtitle = @"";
                         picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
 
                         NSString *photographerName = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];

@@ -26,9 +26,9 @@
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     _managedObjectContext = managedObjectContext;
 
-    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
     request.predicate = nil;
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"title" ascending:YES selector:@selector(localizedStandardCompare:)]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
@@ -36,9 +36,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"Cell"];
 
-    Picture *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
-    cell.textLabel.text = region.title;
+    cell.textLabel.text = region.name;
 
     return cell;
 }
