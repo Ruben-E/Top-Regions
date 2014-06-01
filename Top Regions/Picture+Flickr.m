@@ -140,6 +140,7 @@
             }
         }
 
+        //TODO: Maybe this should not happen in the foreground due to flickering cells. The reason for this doing in the background was the several contexts has to merge with eachother.
         dispatch_async(dispatch_get_main_queue(), ^{
             [self recountCountersInManagedObjectContext:context];
         });

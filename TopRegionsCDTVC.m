@@ -28,7 +28,7 @@
 
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
     request.predicate = nil;
-    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"picturesCount" ascending:YES]];
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"photographersCount" ascending:NO]];
 
     self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
@@ -39,6 +39,7 @@
     Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
     cell.textLabel.text = region.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [region.photographersCount intValue]];
 
     return cell;
 }
