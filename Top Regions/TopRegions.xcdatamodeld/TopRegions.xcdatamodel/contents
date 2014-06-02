@@ -11,6 +11,7 @@
     <entity name="Picture" representedClassName="Picture" syncable="YES">
         <attribute name="flickrId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="subtitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="thumbnail" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="uploadedAt" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
@@ -37,8 +38,8 @@
     </entity>
     <elements>
         <element name="Photographer" positionX="-6084" positionY="-1801" width="128" height="133"/>
+        <element name="Picture" positionX="-6444" positionY="-1864" width="128" height="178"/>
         <element name="Place" positionX="-6669" positionY="-2151" width="128" height="118"/>
         <element name="Region" positionX="-5906" positionY="-2200" width="128" height="163"/>
-        <element name="Picture" positionX="-6444" positionY="-1864" width="128" height="163"/>
     </elements>
 </model>
