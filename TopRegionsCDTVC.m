@@ -10,6 +10,7 @@
 #import "PicturesDatabaseAvailability.h"
 #import "Region.h"
 #import "Picture.h"
+#import "RegionCDTVC.h"
 
 @interface TopRegionsCDTVC ()
 
@@ -42,6 +43,22 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%d", [region.photographersCount intValue]];
 
     return cell;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowPicturesInRegion"]) {
+        RegionCDTVC *regionCDTVC = (RegionCDTVC *)[segue destinationViewController];
+
+        UITableViewCell *cell = (UITableViewCell*)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+        Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+        if (region) {
+            regionCDTVC.region = region;
+            regionCDTVC.title = region.name;
+        }
+    }
 }
 
 @end

@@ -8,6 +8,8 @@
 
 #import "CoreDataTableViewController.h"
 
+@class Region;
+
 @interface TopRegionsCDTVC : CoreDataTableViewController
 
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;

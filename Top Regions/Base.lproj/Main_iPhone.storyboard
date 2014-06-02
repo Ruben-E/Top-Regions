@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3733"/>
     </dependencies>
     <scenes>
-        <!--Top RegionsCDTVC - Top Places-->
+        <!--Top RegionsCDTVC - Top Regions-->
         <scene sceneID="BNe-xW-Wn5">
             <objects>
                 <tableViewController id="Nb6-Tc-9Ou" customClass="TopRegionsCDTVC" sceneMemberID="viewController">
@@ -37,7 +37,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="R83-VL-7ad" kind="push" identifier="ShowTopPicturesOfCity" id="gAz-pJ-5wX"/>
+                                    <segue destination="R83-VL-7ad" kind="push" identifier="ShowPicturesInRegion" id="gAz-pJ-5wX"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -62,10 +62,10 @@
             </objects>
             <point key="canvasLocation" x="1450" y="-203"/>
         </scene>
-        <!--Place Table View Controller-->
+        <!--RegionCDTVC-->
         <scene sceneID="9T8-JM-Vhm">
             <objects>
-                <tableViewController id="R83-VL-7ad" customClass="PlaceTableViewController" sceneMemberID="viewController">
+                <tableViewController id="R83-VL-7ad" customClass="RegionCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="IHF-ek-XdM">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
