@@ -2,7 +2,7 @@
 //  Region.m
 //  Top Regions
 //
-//  Created by Ruben Ernst on 01-06-14.
+//  Created by Ruben Ernst on 02-06-14.
 //  Copyright (c) 2014 Ruben Ernst. All rights reserved.
 //
 
@@ -16,11 +16,11 @@
 
 @dynamic flickrId;
 @dynamic name;
+@dynamic photographersCount;
 @dynamic picturesCount;
 @dynamic placesCount;
-@dynamic photographersCount;
-@dynamic places;
-@dynamic pictures;
 @dynamic photographers;
+@dynamic pictures;
+@dynamic places;
 
 @end
