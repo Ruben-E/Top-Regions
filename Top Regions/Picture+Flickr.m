@@ -21,8 +21,9 @@
 }
 
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
-    dispatch_queue_t placeQ =dispatch_queue_create("place fetcher", NULL);
-    dispatch_async(placeQ, ^{
+    dispatch_queue_t fetcherQueue = dispatch_queue_create("place fetcher", NULL);
+    dispatch_queue_t thumbnailQueue = dispatch_queue_create("thumbnail fetcher", NULL);
+    dispatch_async(fetcherQueue, ^{
         NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
         [context2 setPersistentStoreCoordinator:[context persistentStoreCoordinator]];
 
@@ -76,7 +77,23 @@
                             picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
                             picture.uploadedAt = [NSDate dateWithTimeIntervalSince1970:[[pictureDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE] doubleValue]];
                             //TODO: Check if NSDate also contains minutes.
-                            picture.thumbnail = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare]];
+
+                            dispatch_async(thumbnailQueue, ^{
+                                NSManagedObjectContext *context3 = [[NSManagedObjectContext alloc] init];
+                                [context3 setPersistentStoreCoordinator:[context persistentStoreCoordinator]];
+
+                                NSFetchRequest *pictureRequest = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+                                pictureRequest.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
+
+                                NSError *pictureError;
+                                NSArray *pictureMatches = [context executeFetchRequest:pictureRequest error:&pictureError];
+
+                                if ([pictureMatches count] > 0) {
+                                    Picture *testPicture = [pictureMatches firstObject];
+                                    testPicture.thumbnail = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare]];
+                                }
+                                //TODO: This could be a lot better.
+                            });
 
                             NSEntityDescription *photographerEntity = [NSEntityDescription entityForName:@"Photographer" inManagedObjectContext:context];
                             NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
@@ -149,6 +166,21 @@
         });
     });
 }
+
+//+ (void)fetchThumbnailForPictureDictionary:(NSDictionary *)pictureDictionary inManagedObjectContext:(NSManagedObjectContext *)context {
+//    NSString *flickrId = pictureDictionary[FLICKR_PHOTO_ID];
+//
+//    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+//    request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
+//
+//    NSError *error;
+//    NSArray *matches = [context executeFetchRequest:request error:&error];
+//
+//    if ([matches count] > 0) {
+//        Picture *picture = [matches firstObject];
+//        picture.thumbnail = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare]];
+//    }
+//}
 
 + (void)recountCountersInManagedObjectContext:(NSManagedObjectContext *)context {
     NSFetchRequest *regionRequest = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
