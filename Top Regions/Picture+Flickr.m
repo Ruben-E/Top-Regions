@@ -74,6 +74,8 @@
                             picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
                             picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
                             picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
+                            picture.uploadedAt = [NSDate dateWithTimeIntervalSince1970:[[pictureDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE] doubleValue]];
+                            //TODO: Check if NSDate also contains minutes.
 
                             NSEntityDescription *photographerEntity = [NSEntityDescription entityForName:@"Photographer" inManagedObjectContext:context];
                             NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
