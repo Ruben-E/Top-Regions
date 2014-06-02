@@ -35,6 +35,7 @@
 
     cell.textLabel.text = picture.title;
     cell.detailTextLabel.text = picture.description;
+    cell.accessoryView = [[UIImageView alloc] initWithImage:[UIImage imageWithData:picture.thumbnail]];
 
     return cell;
 }
