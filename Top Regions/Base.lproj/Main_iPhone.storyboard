@@ -135,10 +135,10 @@
             </objects>
             <point key="canvasLocation" x="364" y="207"/>
         </scene>
-        <!--Recents Table View Controller - Recents-->
+        <!--RecentsCDTVC - Recents-->
         <scene sceneID="IoD-Hd-ayL">
             <objects>
-                <tableViewController id="IH7-Rz-cpB" customClass="RecentsTableViewController" sceneMemberID="viewController">
+                <tableViewController id="IH7-Rz-cpB" customClass="RecentsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wm2-Rv-cK3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -267,6 +267,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="ans-gd-N5T"/>
+        <segue reference="ZOc-A5-BkF"/>
     </inferredMetricsTieBreakers>
 </document>
