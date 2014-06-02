@@ -24,7 +24,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="picturesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="isIn" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Region" inverseName="places" inverseEntity="Region" syncable="YES"/>
-        <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Picture" inverseName="takenIn" inverseEntity="Picture" syncable="YES"/>
+        <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Picture" inverseName="takenIn" inverseEntity="Picture" syncable="YES"/>
     </entity>
     <entity name="Region" representedClassName="Region" syncable="YES">
         <attribute name="flickrId" optional="YES" attributeType="String" syncable="YES"/>
@@ -34,7 +34,7 @@
         <attribute name="placesCount" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="photographers" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Photographer" inverseName="regions" inverseEntity="Photographer" syncable="YES"/>
         <relationship name="pictures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Picture" inverseName="region" inverseEntity="Picture" syncable="YES"/>
-        <relationship name="places" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Place" inverseName="isIn" inverseEntity="Place" syncable="YES"/>
+        <relationship name="places" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Place" inverseName="isIn" inverseEntity="Place" syncable="YES"/>
     </entity>
     <elements>
         <element name="Photographer" positionX="-6084" positionY="-1801" width="128" height="133"/>
