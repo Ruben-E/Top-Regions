@@ -6,6 +6,7 @@
 #import "RegionCDTVC.h"
 #import "Region.h"
 #import "Picture.h"
+#import "PictureViewController.h"
 
 
 @implementation RegionCDTVC
@@ -37,5 +38,27 @@
 
     return cell;
 }
+
+- (void)prepareImagePictureViewController:(PictureViewController *)pictureViewController toDisplayPicture:(Picture *)picture {
+    pictureViewController.pictureURL = [NSURL URLWithString:picture.url];
+    pictureViewController.pictureTitle = picture.title;
+    pictureViewController.title = picture.title;
+}
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    if ([segue.identifier isEqualToString:@"ShowPicture"]) {
+        PictureViewController *pictureViewController = (PictureViewController *)[segue destinationViewController];
+
+        UITableViewCell *cell = (UITableViewCell*)sender;
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+        Picture *picture = [self.fetchedResultsController objectAtIndexPath:indexPath];
+
+        if (picture) {
+            [self prepareImagePictureViewController:pictureViewController toDisplayPicture:picture];
+        }
+    }
+}
+
 
 @end
