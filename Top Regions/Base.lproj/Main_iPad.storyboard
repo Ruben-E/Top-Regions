@@ -7,7 +7,6 @@
         <!--Split View Controller - Item-->
         <scene sceneID="qO6-5b-cNC">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A8e-u3-zAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <splitViewController id="m59-Q0-mIh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Item" id="cAA-pE-7zb"/>
                     <toolbarItems/>
@@ -16,17 +15,13 @@
                         <segue destination="C0c-Mn-0Pf" kind="relationship" relationship="detailViewController" id="8jn-cm-M3H"/>
                     </connections>
                 </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="A8e-u3-zAw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1024" y="62"/>
         </scene>
         <!--Top RegionsCDTVC - Top Regions-->
         <scene sceneID="ZJV-Cv-ZUb">
             <objects>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Q1E-ff-7A0">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                </activityIndicatorView>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="rNh-7o-SRw" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="24o-tG-Fse" customClass="TopRegionsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="8M9-Dp-n31">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
@@ -57,7 +52,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="O1f-mb-Ftb" kind="push" identifier="ShowTopPicturesOfCity" id="87I-5D-5P7"/>
+                                    <segue destination="O1f-mb-Ftb" kind="push" identifier="ShowPicturesInRegion" id="87I-5D-5P7"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -74,13 +69,17 @@
                         </connections>
                     </refreshControl>
                 </tableViewController>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Q1E-ff-7A0">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rNh-7o-SRw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1470" y="-533"/>
         </scene>
         <!--RegionCDTVC-->
         <scene sceneID="vC4-Sq-0DH">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="UCl-42-eu6" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="O1f-mb-Ftb" customClass="RegionCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lqB-kW-bpa">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
@@ -125,13 +124,13 @@
                         </connections>
                     </refreshControl>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UCl-42-eu6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2048" y="-533"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="lox-kh-St6">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Eq4-dJ-UG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="gyv-XQ-iui" sceneMemberID="viewController">
                     <toolbarItems/>
                     <nil key="simulatedBottomBarMetrics"/>
@@ -144,13 +143,13 @@
                         <segue destination="9Ae-ys-iWl" kind="relationship" relationship="viewControllers" id="f8k-kk-m3V"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Eq4-dJ-UG8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-40" y="-533"/>
         </scene>
         <!--RecentsCDTVC - Recents-->
         <scene sceneID="tJy-H2-bOV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wCC-LJ-t9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tableViewController id="x5w-3c-Fls" customClass="RecentsCDTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8Id-nd-ieI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="852"/>
@@ -182,13 +181,13 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Recents" id="obt-yR-OtD"/>
                 </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wCC-LJ-t9k" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2424" y="533"/>
         </scene>
         <!--Picture View Controller-->
         <scene sceneID="Lmu-f8-5Ro">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zbe-3Q-lub" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="W2p-sS-aYg" customClass="PictureViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fV5-Wh-gv7"/>
@@ -224,13 +223,13 @@
                         <outlet property="scrollView" destination="Dji-pP-8K1" id="veY-gh-PC8"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zbe-3Q-lub" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="934" y="1305"/>
         </scene>
         <!--Navigation Controller - Top Places-->
         <scene sceneID="2kF-bY-b3B">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6pw-bq-3WL" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="2rK-Sm-vfb" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Top Places" image="topplaces-icon" id="4uD-mm-5rV"/>
                     <toolbarItems/>
@@ -243,13 +242,13 @@
                         <segue destination="24o-tG-Fse" kind="relationship" relationship="rootViewController" id="p7q-rP-7Hv"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6pw-bq-3WL" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="896" y="-533"/>
         </scene>
         <!--Navigation Controller - Recents-->
         <scene sceneID="y7b-dY-S1y">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Vq8-Cr-27g" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="9Ae-ys-iWl" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Recents" image="recents-icon" id="rR2-Zq-lyf"/>
                     <toolbarItems/>
@@ -262,13 +261,13 @@
                         <segue destination="x5w-3c-Fls" kind="relationship" relationship="rootViewController" id="f81-rV-nbY"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vq8-Cr-27g" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1898" y="533"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="pgq-5H-kMk">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="KBX-xw-KbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="C0c-Mn-0Pf" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="BNC-Jp-ogs">
@@ -280,6 +279,7 @@
                         <segue destination="W2p-sS-aYg" kind="relationship" relationship="rootViewController" id="HZ9-fX-avI"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KBX-xw-KbV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-40" y="1305"/>
         </scene>

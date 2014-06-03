@@ -20,7 +20,7 @@
 
 - (void)awakeFromNib {
     [[NSNotificationCenter defaultCenter] addObserverForName:PicturesDatabaseAvailabilityNotification object:nil queue:nil usingBlock:^(NSNotification *notification){
-       self.managedObjectContext = notification.userInfo[PicturesDatabaseAvailabilityContext];
+        self.managedObjectContext = notification.userInfo[PicturesDatabaseAvailabilityContext];
     }];
 }
 
@@ -45,18 +45,22 @@
     return cell;
 }
 
+- (void)prepareRegionController:(RegionCDTVC *)regionController toLoadRegion:(Region *)region {
+    regionController.region = region;
+    regionController.title = region.name;
+}
+
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([segue.identifier isEqualToString:@"ShowPicturesInRegion"]) {
-        RegionCDTVC *regionCDTVC = (RegionCDTVC *)[segue destinationViewController];
+        RegionCDTVC *regionCDTVC = (RegionCDTVC *) [segue destinationViewController];
 
-        UITableViewCell *cell = (UITableViewCell*)sender;
+        UITableViewCell *cell = (UITableViewCell *) sender;
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 
         Region *region = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
         if (region) {
-            regionCDTVC.region = region;
-            regionCDTVC.title = region.name;
+            [self prepareRegionController:regionCDTVC toLoadRegion:region];
         }
     }
 }

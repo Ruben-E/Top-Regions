@@ -50,7 +50,7 @@
           withBarButtonItem:(UIBarButtonItem *)barButtonItem
        forPopoverController:(UIPopoverController *)pc
 {
-    barButtonItem.title = @"Top Places";
+    barButtonItem.title = @"Top Regions";
     self.navigationItem.leftBarButtonItem = barButtonItem;
 }
 
