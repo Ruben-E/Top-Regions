@@ -329,6 +329,13 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Ruben Ernst";
 				TargetAttributes = {
+					11EF9E5D192BE246000C6DD0 = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
+					};
 					11EF9E81192BE246000C6DD0 = {
 						TestTargetID = 11EF9E5D192BE246000C6DD0;
 					};
