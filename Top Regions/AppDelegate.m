@@ -48,6 +48,10 @@
     }];
 }
 
+- (void)startFlickrFetch:(NSTimer *)timer {
+    [self startFlickrFetch];
+}
+
 - (NSURLSession *)flickrDownloadSession {
     if (!_flickrDownloadSession) {
         static dispatch_once_t onceToken;
@@ -173,6 +177,8 @@ totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite {
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext {
     _managedObjectContext = managedObjectContext;
+
+    [NSTimer scheduledTimerWithTimeInterval:FOREGROUND_FLICKR_FETCH_INTERVAL target:self selector:@selector(startFlickrFetch:) userInfo:nil repeats:YES];
 
     if (managedObjectContext) {
         NSDictionary *userInfo = @{PicturesDatabaseAvailabilityContext : managedObjectContext};
