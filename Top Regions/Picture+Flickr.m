@@ -13,6 +13,7 @@
 #import "Region.h"
 #import "Place+Create.h"
 #import "Region+Create.h"
+#import "DocumentHandler.h"
 
 @implementation Picture (Flickr)
 
@@ -21,150 +22,211 @@
 }
 
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
+//    NSManagedObjectContext *mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+//    [mainContext setParentContext:context];
     dispatch_queue_t fetcherQueue = dispatch_queue_create("place fetcher", NULL);
     dispatch_queue_t thumbnailQueue = dispatch_queue_create("thumbnail fetcher", NULL);
     dispatch_async(fetcherQueue, ^{
-        NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] init];
-        [context2 setPersistentStoreCoordinator:[context persistentStoreCoordinator]];
+        //[[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+            //NSManagedObjectContext *context2 = document.managedObjectContext;
 
-        NSMutableDictionary *places = [[NSMutableDictionary alloc] init];
+        NSManagedObjectContext *context2 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
+        [context2 setParentContext:context];
 
-        for (NSDictionary *pictureDictionary in pictures) {
-            NSString *flickrId = pictureDictionary[FLICKR_PHOTO_ID];
+            NSMutableDictionary *places = [[NSMutableDictionary alloc] init];
 
-            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
-            request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
+            for (NSDictionary *pictureDictionary in pictures) {
+                NSString *flickrId = pictureDictionary[FLICKR_PHOTO_ID];
+                NSLog(@"FlickrID: %@", flickrId);
 
-            NSError *error;
-            NSArray *matches = [context2 executeFetchRequest:request error:&error];
+                NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+                request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
 
-            if ([matches count] == 0) {
-                NSString *picturePlaceId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
-                NSDictionary *placeInformation = [[NSDictionary alloc] init];
+                NSError *error;
+                NSArray *matches = [context2 executeFetchRequest:request error:&error];
 
-                if (![places objectForKey:picturePlaceId]) {
-                    NSURL *urlPlace = [FlickrFetcher URLforInformationAboutPlace:picturePlaceId];
-                    NSData *jsonResults = [NSData dataWithContentsOfURL:urlPlace];
-                    placeInformation = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:NULL];
+                NSLog(@"Matches count: %d", [matches count]);
 
-                    [places setObject:placeInformation forKey:picturePlaceId];
-                } else {
-                    placeInformation = [places objectForKey:picturePlaceId];
-                }
+                if ([matches count] == 0) {
+                    NSString *picturePlaceId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
+                    NSDictionary *placeInformation = [[NSDictionary alloc] init];
 
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
-                    request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
+                    if (![places objectForKey:picturePlaceId]) {
+                        NSLog(@"Place does not exist in cache dictionary");
+                        NSURL *urlPlace = [FlickrFetcher URLforInformationAboutPlace:picturePlaceId];
+                        NSData *jsonResults = [NSData dataWithContentsOfURL:urlPlace];
+                        placeInformation = [NSJSONSerialization JSONObjectWithData:jsonResults options:0 error:NULL];
 
-                    NSError *error;
-                    NSArray *matches = [context executeFetchRequest:request error:&error];
-
-                    if (matches && !error && [matches count] == 0) {
-                        NSString *photographerName = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
-                        NSString *photographerId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER_ID];
-
-                        NSString *placeName = [FlickrFetcher extractNameOfPlace:[pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID] fromPlaceInformation:pictureDictionary];
-                        NSString *placeId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
-
-                        NSString *regionId = [FlickrFetcher extractRegionIdFromPlaceInformation:placeInformation];
-                        NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInformation];
-
-                        if (regionId) {
-                            Picture *picture = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:context];
-                            picture.flickrId = flickrId;
-                            picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
-                            picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
-                            picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
-                            picture.uploadedAt = [NSDate dateWithTimeIntervalSince1970:[[pictureDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE] doubleValue]];
-                            //TODO: Check if NSDate also contains minutes.
-
-                            dispatch_async(thumbnailQueue, ^{
-                                NSManagedObjectContext *context3 = [[NSManagedObjectContext alloc] init];
-                                [context3 setPersistentStoreCoordinator:[context persistentStoreCoordinator]];
-
-                                NSFetchRequest *pictureRequest = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
-                                pictureRequest.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
-
-                                NSError *pictureError;
-                                NSArray *pictureMatches = [context executeFetchRequest:pictureRequest error:&pictureError];
-
-                                if ([pictureMatches count] > 0) {
-                                    Picture *testPicture = [pictureMatches firstObject];
-                                    testPicture.thumbnail = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare]];
-                                }
-                                //TODO: This could be a lot better.
-                            });
-
-                            NSEntityDescription *photographerEntity = [NSEntityDescription entityForName:@"Photographer" inManagedObjectContext:context];
-                            NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context];
-                            NSEntityDescription *regionEntity = [NSEntityDescription entityForName:@"Region" inManagedObjectContext:context];
-
-                            Photographer *photographerDomain = [[NSManagedObject alloc] initWithEntity:photographerEntity insertIntoManagedObjectContext:nil];
-                            photographerDomain.flickrId = photographerId;
-                            photographerDomain.name = photographerName;
-
-                            Place *placeDomain = [[NSManagedObject alloc] initWithEntity:placeEntity insertIntoManagedObjectContext:nil];
-                            placeDomain.flickrId = placeId;
-                            placeDomain.name = placeName;
-
-                            Region *regionDomain = [[NSManagedObject alloc] initWithEntity:regionEntity insertIntoManagedObjectContext:nil];
-                            regionDomain.flickrId = regionId;
-                            regionDomain.name = regionName;
-
-                            Place *place = [Place PlaceByPlace:placeDomain inManagedObjectContext:context];
-                            Region *region = [Region RegionByRegion:regionDomain inManagedObjectContext:context];
-                            Photographer *photographer = [Photographer photographerByPhotographer:photographerDomain inManagedObjectContext:context];
-
-                            if (place.isIn && [place.isIn isKindOfClass:[Region class]]) {
-                                if (![place.isIn.flickrId isEqualToString:regionDomain.flickrId]) {
-                                    place.isIn = region;
-                                }
-                            }
-
-                            if (![[region valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
-                                [region addPicturesObject:picture];
-                                region.picturesCount = [NSNumber numberWithInt:[region.picturesCount intValue] + 1];
-                            }
-
-                            if (![[region valueForKeyPath:@"photographers.flickrId"] containsObject:photographer.flickrId]) {
-                                [region addPhotographersObject:photographer];
-                                region.photographersCount = [NSNumber numberWithInt:[region.photographersCount intValue] + 1];
-                            }
-
-                            if (![[region valueForKeyPath:@"places.flickrId"] containsObject:place.flickrId]) {
-                                [region addPlacesObject:place];
-                                region.placesCount = [NSNumber numberWithInt:[region.placesCount intValue] + 1];
-                            }
-
-                            if (![[place valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
-                                [place addPicturesObject:picture];
-                                place.picturesCount = [NSNumber numberWithInt:[place.picturesCount intValue] + 1];
-                            }
-
-                            if (![[photographer valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
-                                [photographer addPicturesObject:picture];
-                                photographer.picturesCount = [NSNumber numberWithInt:[photographer.picturesCount intValue] + 1];
-                            }
-
-                            if (![[photographer valueForKeyPath:@"regions.flickrId"] containsObject:region.flickrId]) {
-                                [photographer addRegionsObject:region];
-                                photographer.regionsCount = [NSNumber numberWithInt:[photographer.regionsCount intValue] + 1];
-                            }
-
-                            picture.takenIn = place;
-                            picture.whoTook = photographer;
-                            picture.region = region;
-                        }
+                        [places setObject:placeInformation forKey:picturePlaceId];
+                    } else {
+                        NSLog(@"Place does exist in cache dictionary");
+                        placeInformation = [places objectForKey:picturePlaceId];
                     }
-                });
+
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        //[[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+                            //NSManagedObjectContext *context3 = document.managedObjectContext;
+
+                        NSManagedObjectContext *context3 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
+                        [context3 setParentContext:context];
+
+                            NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+                            request.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
+
+                            NSError *error;
+                            NSArray *matches = [context3 executeFetchRequest:request error:&error];
+
+                            NSLog(@"Number of matches in DB for FlickrID: %@ : %d", flickrId, [matches count]);
+
+                            if (matches && !error && [matches count] == 0) {
+                                NSString *photographerName = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER];
+                                NSString *photographerId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_OWNER_ID];
+
+                                NSString *placeName = [FlickrFetcher extractNameOfPlace:[pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID] fromPlaceInformation:pictureDictionary];
+                                NSString *placeId = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_PLACE_ID];
+
+                                NSString *regionId = [FlickrFetcher extractRegionIdFromPlaceInformation:placeInformation];
+                                NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInformation];
+
+                                if (regionId) {
+                                    Picture *picture = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:context3];
+                                    picture.flickrId = flickrId;
+                                    picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
+                                    picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
+                                    picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
+                                    picture.uploadedAt = [NSDate dateWithTimeIntervalSince1970:[[pictureDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE] doubleValue]];
+                                    //TODO: Check if NSDate also contains minutes.
+
+                                    dispatch_async(thumbnailQueue, ^{
+                                        //[[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+                                        NSManagedObjectContext *context4 = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
+                                        [context4 setParentContext:context];
+                                            if (flickrId) {
+                                                NSFetchRequest *pictureRequest = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+                                                pictureRequest.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
+
+                                                NSError *pictureError;
+                                                NSArray *pictureMatches = [context4 executeFetchRequest:pictureRequest error:&pictureError];
+
+                                                if ([pictureMatches count] > 0) {
+                                                    Picture *testPicture = [pictureMatches firstObject];
+                                                    NSData *thumbnail = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare]];
+                                                    if (testPicture) {
+                                                        NSLog(@"Thumbnail picture flickrID: %@", testPicture.flickrId);
+                                                        testPicture.thumbnail = thumbnail;
+
+                                                        [context4 save:nil];
+
+                                                        [context performBlock:^{
+                                                            [context save:nil];
+                                                        }];
+                                                    }
+                                                }
+                                                //TODO: This could be a lot better.
+                                            }
+                                        //}];
+                                    });
+
+                                    NSEntityDescription *photographerEntity = [NSEntityDescription entityForName:@"Photographer" inManagedObjectContext:context3];
+                                    NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:context3];
+                                    NSEntityDescription *regionEntity = [NSEntityDescription entityForName:@"Region" inManagedObjectContext:context3];
+
+                                    Photographer *photographerDomain = [[NSManagedObject alloc] initWithEntity:photographerEntity insertIntoManagedObjectContext:nil];
+                                    photographerDomain.flickrId = photographerId;
+                                    photographerDomain.name = photographerName;
+
+                                    Place *placeDomain = [[NSManagedObject alloc] initWithEntity:placeEntity insertIntoManagedObjectContext:nil];
+                                    placeDomain.flickrId = placeId;
+                                    placeDomain.name = placeName;
+
+                                    Region *regionDomain = [[NSManagedObject alloc] initWithEntity:regionEntity insertIntoManagedObjectContext:nil];
+                                    regionDomain.flickrId = regionId;
+                                    regionDomain.name = regionName;
+
+                                    Place *place = [Place PlaceByPlace:placeDomain inManagedObjectContext:context3];
+                                    Region *region = [Region RegionByRegion:regionDomain inManagedObjectContext:context3];
+                                    Photographer *photographer = [Photographer photographerByPhotographer:photographerDomain inManagedObjectContext:context3];
+
+                                    if (place.isIn && [place.isIn isKindOfClass:[Region class]]) {
+                                        if (![place.isIn.flickrId isEqualToString:regionDomain.flickrId]) {
+                                            place.isIn = region;
+                                        }
+                                    }
+
+                                    if (![[region valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
+                                        [region addPicturesObject:picture];
+                                        region.picturesCount = [NSNumber numberWithInt:[region.picturesCount intValue] + 1];
+                                    }
+
+                                    if (![[region valueForKeyPath:@"photographers.flickrId"] containsObject:photographer.flickrId]) {
+                                        [region addPhotographersObject:photographer];
+                                        region.photographersCount = [NSNumber numberWithInt:[region.photographersCount intValue] + 1];
+                                    }
+
+                                    if (![[region valueForKeyPath:@"places.flickrId"] containsObject:place.flickrId]) {
+                                        [region addPlacesObject:place];
+                                        region.placesCount = [NSNumber numberWithInt:[region.placesCount intValue] + 1];
+                                    }
+
+                                    if (![[place valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
+                                        [place addPicturesObject:picture];
+                                        place.picturesCount = [NSNumber numberWithInt:[place.picturesCount intValue] + 1];
+                                    }
+
+                                    if (![[photographer valueForKeyPath:@"pictures.flickrId"] containsObject:picture.flickrId]) {
+                                        [photographer addPicturesObject:picture];
+                                        photographer.picturesCount = [NSNumber numberWithInt:[photographer.picturesCount intValue] + 1];
+                                    }
+
+                                    if (![[photographer valueForKeyPath:@"regions.flickrId"] containsObject:region.flickrId]) {
+                                        [photographer addRegionsObject:region];
+                                        photographer.regionsCount = [NSNumber numberWithInt:[photographer.regionsCount intValue] + 1];
+                                    }
+
+                                    picture.takenIn = place;
+                                    picture.whoTook = photographer;
+                                    picture.region = region;
+                                }
+                            }
+
+                        [context3 save:nil];
+
+                        [context performBlock:^{
+                            [context save:nil];
+                        }];
+                        //}];
+                    });
+                }
+            }
+
+            //TODO: Maybe this should not happen in the foreground due to flickering cells. The reason for this doing in the background was the several contexts has to merge with eachother.
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
+                    [self recountCountersInManagedObjectContext:document.managedObjectContext];
+//                [self deleteOlderRegionsInManagedObjectContext:document.managedObjectContext];
+                }];
+            });
+        //}];
+    });
+}
+
++ (void)deleteOlderRegionsInManagedObjectContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Region"];
+    request.predicate = nil;
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"photographersCount" ascending:NO]];
+    request.fetchOffset = 50;
+
+    NSError *error;
+    NSArray *matches = [context executeFetchRequest:request error:&error];
+
+    if ([matches count] > 0) {
+        for (int i = 0; i < [matches count]; i++) {
+            Region *region = [matches objectAtIndex:i];
+            if (region) {
+                [context deleteObject:region];
             }
         }
-
-        //TODO: Maybe this should not happen in the foreground due to flickering cells. The reason for this doing in the background was the several contexts has to merge with eachother.
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self recountCountersInManagedObjectContext:context];
-        });
-    });
+    }
 }
 
 //+ (void)fetchThumbnailForPictureDictionary:(NSDictionary *)pictureDictionary inManagedObjectContext:(NSManagedObjectContext *)context {
