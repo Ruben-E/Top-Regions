@@ -104,6 +104,7 @@
                         picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
                         picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
                         picture.url = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatLarge] absoluteString];
+                        picture.thumbnailUrl = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare] absoluteString];
                         picture.uploadedAt = [NSDate dateWithTimeIntervalSince1970:[[pictureDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE] doubleValue]];
                         //TODO: Check if NSDate also contains minutes.
 
@@ -112,7 +113,7 @@
                             NSManagedObjectContext *thumbnailContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
                             [thumbnailContext setParentContext:context];
 
-                            [self loadThumbnailForPicture:pictureDictionary intoManagedObjectContext:thumbnailContext andThenExecuteBlock:^{
+                            [self loadThumbnailForPictureWithFlickrId:flickrId intoManagedObjectContext:thumbnailContext andThenExecuteBlock:^{
                                 [context performBlock:^{
                                     [context save:nil];
                                 }];
@@ -193,6 +194,7 @@
                             [managementContext setParentContext:context];
                             [self recountCountersInManagedObjectContext:managementContext];
                             [self deleteOlderRegionsInManagedObjectContext:managementContext];
+                            [self loadThumbnailsForPicturesWithoutThumbnailInManagedObjectContext:managementContext];
 
                             [managementContext save:nil];
 
@@ -209,10 +211,23 @@
         }
 }
 
-+ (void)loadThumbnailForPicture:(NSDictionary *)pictureDictionary
++ (void)loadThumbnailsForPicturesWithoutThumbnailInManagedObjectContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
+    request.predicate = [NSPredicate predicateWithFormat:@"thumbnail = nil"];
+    NSArray *pictures = [context executeFetchRequest:request error:0];
+
+    for (Picture *picture in pictures) {
+        if (picture.thumbnailUrl && ![picture.thumbnailUrl isEqualToString:@""]) {
+            [self loadThumbnailForPictureWithFlickrId:picture.flickrId intoManagedObjectContext:context andThenExecuteBlock:^{
+                [context save:nil];
+            }];
+        }
+    }
+}
+
++ (void)loadThumbnailForPictureWithFlickrId:(NSString *)flickrId
        intoManagedObjectContext:(NSManagedObjectContext *)context
             andThenExecuteBlock:(void (^)())whenDone {
-    NSString *flickrId = pictureDictionary[FLICKR_PHOTO_ID];
     if (flickrId) {
         NSFetchRequest *pictureRequest = [NSFetchRequest fetchRequestWithEntityName:@"Picture"];
         pictureRequest.predicate = [NSPredicate predicateWithFormat:@"flickrId = %@", flickrId];
@@ -221,15 +236,17 @@
         NSArray *pictureMatches = [context executeFetchRequest:pictureRequest error:&pictureError];
 
         if ([pictureMatches count] > 0) {
-            Picture *testPicture = [pictureMatches firstObject];
-            NSData *thumbnail = [NSData dataWithContentsOfURL:[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare]];
-            if (testPicture) {
-                NSLog(@"Thumbnail picture flickrID: %@", testPicture.flickrId);
-                testPicture.thumbnail = thumbnail;
+            Picture *picture = [pictureMatches firstObject];
+            if (picture.thumbnailUrl && ![picture.thumbnailUrl isEqualToString:@""]) {
+                NSData *thumbnail = [NSData dataWithContentsOfURL:[NSURL URLWithString:picture.thumbnailUrl]];
+                if (picture) {
+                    NSLog(@"Thumbnail picture flickrID: %@", picture.flickrId);
+                    picture.thumbnail = thumbnail;
 
-                [context save:nil];
+                    [context save:nil];
 
-                if (whenDone) {whenDone();}
+                    if (whenDone) {whenDone();}
+                }
             }
         }
     }
