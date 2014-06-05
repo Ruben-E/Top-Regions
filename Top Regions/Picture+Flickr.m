@@ -17,10 +17,6 @@
 
 @implementation Picture (Flickr)
 
-+ (void)pictureWithFlickrInfo:(NSDictionary *)pictureDictionary inManagedObjectContext:(NSManagedObjectContext *)context {
-
-}
-
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
     dispatch_queue_t fetcherQueue = dispatch_queue_create("place fetcher", NULL);
     dispatch_queue_t thumbnailQueue = dispatch_queue_create("thumbnail fetcher", NULL);
@@ -99,7 +95,7 @@
                     NSString *regionName = [FlickrFetcher extractRegionNameFromPlaceInformation:placeInformation];
 
                     if (regionId) {
-                        Picture *picture = [NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:pictureContext];
+                        Picture *picture = (Picture *)[NSEntityDescription insertNewObjectForEntityForName:@"Picture" inManagedObjectContext:pictureContext];
                         picture.flickrId = flickrId;
                         picture.title = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_TITLE];
                         picture.subtitle = [pictureDictionary valueForKeyPath:FLICKR_PHOTO_DESCRIPTION];
@@ -124,15 +120,15 @@
                         NSEntityDescription *placeEntity = [NSEntityDescription entityForName:@"Place" inManagedObjectContext:pictureContext];
                         NSEntityDescription *regionEntity = [NSEntityDescription entityForName:@"Region" inManagedObjectContext:pictureContext];
 
-                        Photographer *photographerDomain = [[NSManagedObject alloc] initWithEntity:photographerEntity insertIntoManagedObjectContext:nil];
+                        Photographer *photographerDomain = (Photographer *)[[NSManagedObject alloc] initWithEntity:photographerEntity insertIntoManagedObjectContext:nil];
                         photographerDomain.flickrId = photographerId;
                         photographerDomain.name = photographerName;
 
-                        Place *placeDomain = [[NSManagedObject alloc] initWithEntity:placeEntity insertIntoManagedObjectContext:nil];
+                        Place *placeDomain = (Place *)[[NSManagedObject alloc] initWithEntity:placeEntity insertIntoManagedObjectContext:nil];
                         placeDomain.flickrId = placeId;
                         placeDomain.name = placeName;
 
-                        Region *regionDomain = [[NSManagedObject alloc] initWithEntity:regionEntity insertIntoManagedObjectContext:nil];
+                        Region *regionDomain = (Region *)[[NSManagedObject alloc] initWithEntity:regionEntity insertIntoManagedObjectContext:nil];
                         regionDomain.flickrId = regionId;
                         regionDomain.name = regionName;
 

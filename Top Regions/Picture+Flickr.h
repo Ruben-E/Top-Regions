@@ -12,9 +12,6 @@ static const int MAX_REGIONS = 50;
 
 @interface Picture (Flickr)
 
-+ (Picture *)pictureWithFlickrInfo:(NSDictionary *)photoDictionary
-        inManagedObjectContext:(NSManagedObjectContext *)context;
-
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures
            intoManagedObjectContext:(NSManagedObjectContext *)context;
 
