@@ -2,7 +2,7 @@
 //  Picture.m
 //  Top Regions
 //
-//  Created by Ruben Ernst on 02-06-14.
+//  Created by Ruben Ernst on 05-06-14.
 //  Copyright (c) 2014 Ruben Ernst. All rights reserved.
 //
 
@@ -16,10 +16,11 @@
 
 @dynamic flickrId;
 @dynamic subtitle;
+@dynamic thumbnail;
 @dynamic title;
 @dynamic uploadedAt;
 @dynamic url;
-@dynamic thumbnail;
+@dynamic thumbnailUrl;
 @dynamic region;
 @dynamic takenIn;
 @dynamic whoTook;
