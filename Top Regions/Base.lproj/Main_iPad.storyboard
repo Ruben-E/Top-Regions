@@ -62,12 +62,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Top Regions" id="MXe-yF-Tkj"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="RdN-Hm-2TD">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <action selector="startDownloadingData" destination="24o-tG-Fse" eventType="valueChanged" id="T6u-tx-KCQ"/>
-                        </connections>
-                    </refreshControl>
                 </tableViewController>
                 <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="Q1E-ff-7A0">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
@@ -117,12 +111,6 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="NgT-wn-wZh"/>
-                    <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="vC2-WS-Icp">
-                        <autoresizingMask key="autoresizingMask"/>
-                        <connections>
-                            <action selector="startDownloadingData" destination="O1f-mb-Ftb" eventType="valueChanged" id="2SP-Yt-lE3"/>
-                        </connections>
-                    </refreshControl>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UCl-42-eu6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
