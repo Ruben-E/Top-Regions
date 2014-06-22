@@ -39,6 +39,20 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    id detail = self.splitViewController.viewControllers[1];
+    if ([detail isKindOfClass:[UINavigationController class]]) {
+        detail = [((UINavigationController *) detail).viewControllers firstObject];
+    }
+    
+    if ([detail isKindOfClass:[PictureViewController class]]) {
+        Picture *picture = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        PictureViewController *pictureViewController = (PictureViewController *) detail;
+        
+        [self prepareImagePictureViewController:pictureViewController toDisplayPicture:picture];
+    }
+}
+
 - (void)prepareImagePictureViewController:(PictureViewController *)pictureViewController toDisplayPicture:(Picture *)picture {
     pictureViewController.pictureURL = [NSURL URLWithString:picture.url];
     pictureViewController.pictureTitle = picture.title;
