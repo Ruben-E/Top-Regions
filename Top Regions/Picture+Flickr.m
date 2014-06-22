@@ -48,6 +48,7 @@
 }
 
 + (void)loadUniquePicturesFromFlickrArray:(NSMutableArray *)uniquePictures thumbnailQueue:(dispatch_queue_t)thumbnailQueue intoManagedObjectContext:(NSManagedObjectContext *)context {
+    dispatch_queue_t managementQueue = dispatch_queue_create("db management", NULL);
     NSMutableDictionary *places = [[NSMutableDictionary alloc] init];
 
     NSInteger counter = 0;
@@ -103,6 +104,14 @@
                         picture.thumbnailUrl = [[FlickrFetcher URLforPhoto:pictureDictionary format:FlickrPhotoFormatSquare] absoluteString];
                         picture.uploadedAt = [NSDate dateWithTimeIntervalSince1970:[[pictureDictionary valueForKeyPath:FLICKR_PHOTO_UPLOAD_DATE] doubleValue]];
                         //TODO: Check if NSDate also contains minutes.
+                        
+                        if ([picture.title isEqualToString:@""]) {
+                            picture.title = picture.subtitle;
+                        }
+                        
+                        if ([picture.title isEqualToString:@""]) {
+                            picture.title = @"Unknown";
+                        }
 
                         dispatch_async(thumbnailQueue, ^{
                             //[[DocumentHandler sharedDocumentHandler] performWithDocument:^(UIManagedDocument *document) {
@@ -185,7 +194,7 @@
 
                     if (counter == [uniquePictures count]) {
                         //TODO: Maybe this should not happen in the foreground due to flickering cells. The reason for this doing in the background was the several contexts has to merge with eachother.
-                        dispatch_async(dispatch_get_main_queue(), ^{
+                        dispatch_async(managementQueue, ^{
                             NSManagedObjectContext *managementContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
                             [managementContext setParentContext:context];
                             [self recountCountersInManagedObjectContext:managementContext];
@@ -215,7 +224,7 @@
     for (Picture *picture in pictures) {
         if (picture.thumbnailUrl && ![picture.thumbnailUrl isEqualToString:@""]) {
             [self loadThumbnailForPictureWithFlickrId:picture.flickrId intoManagedObjectContext:context andThenExecuteBlock:^{
-                [context save:nil];
+                    [context save:nil];
             }];
         }
     }
