@@ -1,6 +1,6 @@
 //
 // Created by Ruben Ernst on 27-05-14.
-// Copyright (c) 2014 Ruben Ernst. All rights reserved.
+// Source: http://themainthread.com/blog/2012/03/core-data-with-a-single-shared-uimanageddocument.html
 //
 
 #import <Foundation/Foundation.h>
