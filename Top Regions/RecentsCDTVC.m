@@ -34,7 +34,8 @@
     Picture *picture = [self.fetchedResultsController objectAtIndexPath:indexPath];
 
     cell.textLabel.text = picture.title;
-    cell.detailTextLabel.text = picture.description;
+    cell.detailTextLabel.text = picture.subtitle;
+    [cell.imageView setImage:[UIImage imageWithData:picture.thumbnail]];
 
     return cell;
 }
