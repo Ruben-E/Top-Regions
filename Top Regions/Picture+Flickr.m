@@ -17,7 +17,7 @@
 
 @implementation Picture (Flickr)
 
-+ (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context {
++ (void)loadPicturesFromFlickrArray:(NSArray *)pictures intoManagedObjectContext:(NSManagedObjectContext *)context andThenExecuteBlock:(void (^)())whenDone {
     dispatch_queue_t fetcherQueue = dispatch_queue_create("place fetcher", NULL);
     dispatch_queue_t thumbnailQueue = dispatch_queue_create("thumbnail fetcher", NULL);
     dispatch_async(fetcherQueue, ^{
@@ -42,8 +42,12 @@
                 [uniquePictures addObject:pictureDictionary];
             }
         }
+        
+        NSLog(@"Number of unique pictures: %d", [uniquePictures count]);
 
         [self loadUniquePicturesFromFlickrArray:uniquePictures thumbnailQueue:thumbnailQueue intoManagedObjectContext:context];
+        
+        if (whenDone) { whenDone(); }
     });
 }
 

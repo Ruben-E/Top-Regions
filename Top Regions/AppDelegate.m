@@ -81,10 +81,12 @@
                  andThenExecuteBlock:(void (^)())whenDone {
     if (context) {
         NSArray *pictures = [self flickrPhotosAtURL:localFile];
+        NSLog(@"Number of pictures: %d", [pictures count]);
         [context performBlock:^{
-            [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:context];
-            [context save:NULL]; // NOT NECESSARY if this is a UIManagedDocument's context
-            if (whenDone) whenDone();
+            [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:context andThenExecuteBlock:^{
+                [context save:NULL];
+                if (whenDone) whenDone();
+            }];
         }];
     } else {
         if (whenDone) whenDone();
@@ -104,6 +106,7 @@
                         NSLog(@"Flickr background fetch failed: %@", error.localizedDescription);
                         completionHandler(UIBackgroundFetchResultNoData);
                     } else {
+                        NSLog(@"Background fetch succesful");
                         [self loadFlickrPhotosFromLocalURL:localFile
                                                intoContext:self.managedObjectContext
                                        andThenExecuteBlock:^{
@@ -137,7 +140,7 @@ didFinishDownloadingToURL:(NSURL *)localFile {
         NSArray *pictures = [self flickrPhotosAtURL:localFile];
         if (self.managedObjectContext) {
             [self.managedObjectContext performBlock:^{
-                [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:self.managedObjectContext];
+                [Picture loadPicturesFromFlickrArray:pictures intoManagedObjectContext:self.managedObjectContext andThenExecuteBlock:NULL];
                 [self.managedObjectContext save:NULL];
             }];
         } else {

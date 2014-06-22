@@ -13,6 +13,7 @@ static const int MAX_REGIONS = 50;
 @interface Picture (Flickr)
 
 + (void)loadPicturesFromFlickrArray:(NSArray *)pictures
-           intoManagedObjectContext:(NSManagedObjectContext *)context;
+           intoManagedObjectContext:(NSManagedObjectContext *)context
+                andThenExecuteBlock:(void (^)())whenDone;
 
 @end
